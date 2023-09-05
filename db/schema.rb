@@ -10,9 +10,98 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_05_212527) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_05_215655) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "chatroom_members", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "chatroom_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chatroom_id"], name: "index_chatroom_members_on_chatroom_id"
+    t.index ["user_id"], name: "index_chatroom_members_on_user_id"
+  end
+
+  create_table "chatrooms", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "employees", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "property_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_employees_on_property_id"
+    t.index ["user_id"], name: "index_employees_on_user_id"
+  end
+
+  create_table "japplications", force: :cascade do |t|
+    t.string "status"
+    t.bigint "user_id", null: false
+    t.bigint "job_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_japplications_on_job_id"
+    t.index ["user_id"], name: "index_japplications_on_user_id"
+  end
+
+  create_table "job_chats", force: :cascade do |t|
+    t.bigint "job_id", null: false
+    t.bigint "chatroom_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chatroom_id"], name: "index_job_chats_on_chatroom_id"
+    t.index ["job_id"], name: "index_job_chats_on_job_id"
+  end
+
+  create_table "jobs", force: :cascade do |t|
+    t.float "price"
+    t.string "description"
+    t.string "status"
+    t.date "date_of_job"
+    t.string "cleaning_from"
+    t.string "cleaning_until"
+    t.bigint "property_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_jobs_on_property_id"
+    t.index ["user_id"], name: "index_jobs_on_user_id"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.string "content"
+    t.bigint "chatroom_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["chatroom_id"], name: "index_messages_on_chatroom_id"
+  end
+
+  create_table "properties", force: :cascade do |t|
+    t.string "title"
+    t.string "description"
+    t.string "address"
+    t.float "default_job_price"
+    t.string "default_cleaning_from"
+    t.string "default_cleaning_until"
+    t.float "lat"
+    t.float "long"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_properties_on_user_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "role"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_roles_on_user_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -22,8 +111,24 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_05_212527) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.string "phone_number"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "chatroom_members", "chatrooms"
+  add_foreign_key "chatroom_members", "users"
+  add_foreign_key "employees", "properties"
+  add_foreign_key "employees", "users"
+  add_foreign_key "japplications", "jobs"
+  add_foreign_key "japplications", "users"
+  add_foreign_key "job_chats", "chatrooms"
+  add_foreign_key "job_chats", "jobs"
+  add_foreign_key "jobs", "properties"
+  add_foreign_key "jobs", "users"
+  add_foreign_key "messages", "chatrooms"
+  add_foreign_key "properties", "users"
+  add_foreign_key "roles", "users"
 end
