@@ -1,6 +1,6 @@
 require "test_helper"
 
-class JapplicationTest < ActiveSupport::TestCase
+class JobApplicationTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end
