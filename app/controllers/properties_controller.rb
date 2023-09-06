@@ -11,6 +11,11 @@ class PropertiesController < ApplicationController
   def create
     @property = Property.new(property_params)
     @property.user = current_user
+    @team = Team.new
+    @team.property = @property
+    @team.user = current_user
+    @team.profession = 'Manager'
+    @property.teams << @team
     if @property.save
       redirect_to properties_path, notice: 'Property was successfully created.'
     else
