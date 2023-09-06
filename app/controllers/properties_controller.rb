@@ -1,7 +1,10 @@
 class PropertiesController < ApplicationController
-  before_action :set_property, only: %i[edit destroy]
+  before_action :set_property, only: %i[show edit destroy]
   def index
     @properties = Property.all
+  end
+
+  def show
   end
 
   def new
@@ -11,6 +14,11 @@ class PropertiesController < ApplicationController
   def create
     @property = Property.new(property_params)
     @property.user = current_user
+    @team = Team.new
+    @team.property = @property
+    @team.user = current_user
+    @team.profession = 'Manager'
+    @property.teams << @team
     if @property.save
       redirect_to properties_path, notice: 'Property was successfully created.'
     else
@@ -31,6 +39,8 @@ class PropertiesController < ApplicationController
   end
 
   def destroy
+    @property.destroy
+    redirect_to properties_path, notice: 'Property was successfully destroyed.'
   end
 
   private

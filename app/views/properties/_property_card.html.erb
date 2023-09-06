@@ -1,0 +1,54 @@
+<div class="container text-bg-light rounded-4">
+  <div class="row justify-content-evenly">
+    <div class='col-5 m-2'>
+      <%= image_tag "https://www.brownstoner.com/wp-content/uploads/2019/10/bay-ridge-brooklyn-homes-for-sale-41-76th-street-1.jpg", style: "width: 300px; height: 200px;", class: "custom-image" %>
+    </div>
+    <div id="name-address" class="col-5 m-2 d-flex flex-md-column">
+      <div id="Name" class='mb-4'>
+        <p class='mb-2 text-secondary'>Name</p>
+        <%= @property.title %>
+      </div>
+      <div id="address mt-4">
+        <p class='mb-2 text-secondary'>Address</p>
+        <%= @property.address %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+
+    <div class="col-3 m-2">
+      <div id='Available-between' class='mb-4'>
+        <p class='mb-2 text-secondary'>Available between</p>
+        <%= "#{@property.default_cleaning_from} to #{@property.default_cleaning_until}" %>
+      </div>
+      <div id='price' class='mt-4'>
+        <p class='mb-2 text-secondary'>Price</p>
+        <%= "$ #{@property.default_job_price.round(2)}" %>
+      </div>
+    </div>
+
+    <div class="col-3 m-2">
+      <div class="mb-2">
+        <p class="mb-2 text-secondary">Cleaners Team</p>
+        <% @property.teams.each do |employee| %>
+          <% if employee.profession == "cleaner" %>
+            <p> <%= employee.user.first_name %></p>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-3 m-2">
+      <div class="mb-2">
+        <p class="mb-2 text-secondary">Managers Team</p>
+        <% @property.teams.each do |employee| %>
+          <% if employee.profession == "Manager" %>
+            <p> <%= employee.user.first_name %></p>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>
