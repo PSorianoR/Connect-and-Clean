@@ -4,6 +4,7 @@
     <% @properties.each do |property| %>
       <li class="list-group-item">
         <%= property.title %>
+        <%= link_to "Edit", edit_property_path(property), class: 'btn btn-warning' %>
       </li>
     <% end %>
   </ul>
