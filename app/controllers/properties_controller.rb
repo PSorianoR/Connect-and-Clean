@@ -8,10 +8,10 @@ class PropertiesController < ApplicationController
   end
 
   def create
-    @property = Property.new(property_params)
+    @property = Property.new(new_property_params)
     @property.user = current_user
     if @property.save
-      redirect_to property_path, notice: 'Property was successfully created.'
+      redirect_to properties_path, notice: 'Property was successfully created.'
     else
       render :new, status: :unprocessable_entity
     end
@@ -28,9 +28,9 @@ class PropertiesController < ApplicationController
 
   private
 
-  def property_params
-    params.require(:property).permit(:name, :address, :description,
-                                     :price, :default_cleaning_from,
+  def new_property_params
+    params.require(:property).permit(:title, :address, :description,
+                                     :default_job_price, :default_cleaning_from,
                                      :default_cleaning_until)
   end
 end

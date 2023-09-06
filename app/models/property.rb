@@ -4,7 +4,7 @@ class Property < ApplicationRecord
   has_many :teams, dependent: :destroy
   has_many :cleaners, through: :teams
 
-  validates :name, presence: true
+  validates :title, presence: true
   validates :address, presence: true
   validates :description, presence: true, length: { minimum: 10 }
   validates :default_job_price, presence: true, numericality: { greater_than: 0 }

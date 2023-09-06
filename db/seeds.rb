@@ -31,10 +31,10 @@ puts "Seeding roles..."
 
 # Define roles as a hash with user emails as keys and role arrays as values
 roles = {
-  "humberto@lewagon.com" => ["manager"],
-  "matt@lewagon.com" => ["cleaner", "manager"],
-  "pedro@lewagon.com" => ["cleaner", "manager"],
-  "ben@lewagon.com" => ["cleaner"]
+  "humberto@lewagon.com": ["manager"],
+  "matt@lewagon.com": ["cleaner", "manager"],
+  "pedro@lewagon.com": ["cleaner", "manager"],
+  "ben@lewagon.com": ["cleaner"]
 }
 
 # Iterate over the roles hash and create roles for users
@@ -73,9 +73,9 @@ Property.create!({ title: "property2", user: User.find_by(first_name: "Humberto"
   Team.create!({ user: User.find_by(first_name: "Pedro"), property: Property.last, profession: "management" } )
 
 
-   # Creating cleaners for a property
+  # Creating cleaners for a property
 
-    # first property has two cleaners:
+  # first property has two cleaners:
   Team.create!({ user: User.find_by(first_name: "Ben"), property: Property.first, profession: "cleaning" })
   Team.create!({ user: User.find_by(first_name: "Pedro"), property: Property.first, profession: "cleaning" })
 
