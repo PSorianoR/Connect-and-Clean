@@ -1,6 +1,5 @@
 class User < ApplicationRecord
   has_many :jobs, dependent: :destroy
-  has_many :jobs, through: :properties
   has_many :properties, dependent: :destroy
   has_many :roles, dependent: :destroy
   has_many :teams, dependent: :destroy
@@ -14,4 +13,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+  # validates :name, :birth_date, :address, presence:true
+  has_one_attached :photo
 end

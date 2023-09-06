@@ -1,7 +1,7 @@
 <div class="navbar navbar-expand-sm navbar-light navbar-lewagon">
   <div class="container-fluid">
     <%= link_to "#", class: "navbar-brand" do %>
-      <%= image_tag "https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/logo.png" %>
+      <%= image_tag "https://files.slack.com/files-pri/T02NE0241-F05R4UADXN1/connect_and_clean_logo_concept.png" %>
     <% end %>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -12,18 +12,43 @@
       <ul class="navbar-nav me-auto">
         <% if user_signed_in? %>
           <li class="nav-item active">
-            <%= link_to "Home", "#", class: "nav-link" %>
+            <%= link_to "Dashboard", dashboard_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Messages", "#", class: "nav-link" %>
+            <%= link_to "Inbox", "#", class: "nav-link" %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "Properties", "#", class: "nav-link" %>
+          </li>
+           <li class="nav-item">
+            <%= link_to "Jobs", "#", class: "nav-link" %>
           </li>
           <li class="nav-item dropdown">
+            <% if user_signed_in? %>
+                <li class="nav-item dropdown">
+                  <% if current_user.photo.attached?  %>
+                    <%# <a class="nav-link" href="#" data-bs-toggle="dropdown"><%= cl_image_tag current_user.photo.key, class: "avatar dropdown-toggle", height: 35, width: 35, crop: :fill %></a> %>
+                  <% else %>
+                    <a class="nav-link" href="#" data-bs-toggle="dropdown"><img src="https://images.nightcafe.studio//assets/profile.png?tr=w-640,c-at_max" alt="Image not found" class= "avatar dropdown-toggle"></a>
+                  <% end %>
+            <% end %>
           <a href="#" class="avatar" id="navbarDropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <%= image_tag "https://kitt.lewagon.com/placeholder/users/ssaunier", class: "avatar", alt: "dropdown menu" %>
           </a>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-              <%= link_to "Action", "#", class: "dropdown-item" %>
-              <%= link_to "Another action", "#", class: "dropdown-item" %>
+              <button
+                    class="dropdown-item"
+                    data-action="click->navbar#enableOwnerMode"
+                    data-navbar-target="renterLinkText">
+                    Switch to Manager Mode
+                  </button>
+                  <button
+                    class="dropdown-item d-none"
+                    data-action="click->navbar#disableOwnerMode"
+                    data-navbar-target="ownerLinkText">
+                    Switch to Cleaner Mode
+                  </button>
+                  <%= link_to "My Profile", user_path(current_user), class: "dropdown-item" %>
               <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
             </div>
           </li>
