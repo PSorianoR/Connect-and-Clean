@@ -1,2 +1,11 @@
-<h1>Properties#index</h1>
-<p>Find me in app/views/properties/index.html.erb</p>
+<h1>Your Properties 🏠</h1>
+<div class="container">
+  <ul class="list-group">
+    <% @properties.each do |property| %>
+      <li class="list-group-item">
+        <%= property.address %>
+      </li>
+    <% end %>
+  </ul>
+  <%# <%= link_to 'Add a new Property', properties_new_path(@property) %>
+</div>
