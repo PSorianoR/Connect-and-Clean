@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   end
 
   resources :users, only: %i[show]
+
+  get 'dashboard', to: "users#dashboard", as: "dashboard"
   # Defines the root path route ("/")
   # root "articles#index"
 end
