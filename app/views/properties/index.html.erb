@@ -1,2 +1,15 @@
-<h1>Properties#index</h1>
-<p>Find me in app/views/properties/index.html.erb</p>
+<h1>Your Properties 🏠</h1>
+<div class="container">
+  <ul class="list-group">
+    <% @properties.each do |property| %>
+      <li class="list-group-item">
+        <%= property.title %>
+        <%= link_to "Edit", edit_property_path(property), class: 'btn btn-warning' %>
+        <%= link_to "Delete", property_path(property), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+      </li>
+    <% end %>
+  </ul>
+  <div class="button mt-4">
+    <%= link_to 'Add a new Property', new_property_path %>
+  </div>
+</div>

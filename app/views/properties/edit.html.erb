@@ -1,2 +1,7 @@
-<h1>Properties#edit</h1>
+<h1>Edit your Property</h1>
 <p>Find me in app/views/properties/edit.html.erb</p>
+
+<div class="container">
+  <%= render 'form' %>
+  <%= link_to 'Cancel', properties_path, class: 'btn btn-danger' %>
+</div>
