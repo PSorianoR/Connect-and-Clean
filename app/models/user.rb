@@ -7,7 +7,8 @@ class User < ApplicationRecord
   has_many :job_applications, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :chatroom_members, dependent: :destroy
-  has_many :reviews, dependent: :destroy
+  # has_many :reviews, through: :jobs, through: :properties
+  # how do I combine more tan one trough in one has_many:  ?
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
