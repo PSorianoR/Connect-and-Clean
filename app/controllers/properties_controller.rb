@@ -31,6 +31,8 @@ class PropertiesController < ApplicationController
   end
 
   def destroy
+    @property.destroy
+    redirect_to properties_path, notice: 'Property was successfully destroyed.'
   end
 
   private
