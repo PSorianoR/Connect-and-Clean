@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     resources :job_applications, only: %i[create update]
     resources :reviews, only: %i[create]
   end
+
+  resources :users, only: %i[show]
   # Defines the root path route ("/")
   # root "articles#index"
 end
