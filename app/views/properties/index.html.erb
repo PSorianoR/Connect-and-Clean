@@ -3,9 +3,11 @@
   <ul class="list-group">
     <% @properties.each do |property| %>
       <li class="list-group-item">
-        <%= property.address %>
+        <%= property.title %>
       </li>
     <% end %>
   </ul>
-  <%# <%= link_to 'Add a new Property', properties_new_path(@property) %>
+  <div class="button mt-4">
+    <%= link_to 'Add a new Property', new_property_path %>
+  </div>
 </div>
