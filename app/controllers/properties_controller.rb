@@ -1,4 +1,5 @@
 class PropertiesController < ApplicationController
+  before_action :set_property, only: %i[edit destroy]
   def index
     @properties = Property.all
   end
@@ -8,7 +9,7 @@ class PropertiesController < ApplicationController
   end
 
   def create
-    @property = Property.new(new_property_params)
+    @property = Property.new(property_params)
     @property.user = current_user
     if @property.save
       redirect_to properties_path, notice: 'Property was successfully created.'
@@ -21,6 +22,12 @@ class PropertiesController < ApplicationController
   end
 
   def update
+    @property = Property.find(params[:id])
+    if @property.update(property_params)
+      redirect_to properties_path, notice: 'Property was successfully updated.'
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -28,9 +35,12 @@ class PropertiesController < ApplicationController
 
   private
 
-  def new_property_params
+  def property_params
     params.require(:property).permit(:title, :address, :description,
                                      :default_job_price, :default_cleaning_from,
                                      :default_cleaning_until)
+  end
+  def set_property
+    @property = Property.find(params[:id])
   end
 end
