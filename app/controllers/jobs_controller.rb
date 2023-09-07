@@ -1,6 +1,5 @@
 class JobsController < ApplicationController
   def index
-    user = current_user
     if session[:user_role] == "manager"
       profession = "management"
       get_job(profession)
