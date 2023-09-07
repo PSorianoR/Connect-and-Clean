@@ -4,6 +4,8 @@ class Property < ApplicationRecord
   has_many :teams, dependent: :destroy
   has_many :cleaners, through: :teams
 
+  geocoded_by :address
+  after_validation :geocode, if: :will_save_change_to_address?
   # validates :title, presence: true
   # validates :address, presence: true
   # validates :description, presence: true, length: { minimum: 10 }

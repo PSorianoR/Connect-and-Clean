@@ -7,8 +7,8 @@ class CreateProperties < ActiveRecord::Migration[7.0]
       t.float :default_job_price
       t.string :default_cleaning_from
       t.string :default_cleaning_until
-      t.float :lat
-      t.float :long
+      t.float :latitude
+      t.float :longitude
       t.references :user, null: false, foreign_key: true
 
       t.timestamps

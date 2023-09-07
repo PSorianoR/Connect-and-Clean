@@ -1,7 +1,15 @@
 class PropertiesController < ApplicationController
   before_action :set_property, only: %i[show edit destroy]
+
   def index
     @properties = Property.all
+    # The `geocoded` scope filters only properties with coordinates
+    @markers = @properties.geocoded.map do |property|
+      {
+        lat: property.latitude,
+        lng: property.longitude
+      }
+    end
   end
 
   def show
