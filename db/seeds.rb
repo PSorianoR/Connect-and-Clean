@@ -33,7 +33,8 @@ emails.each_with_index do |email, index|
 
   puts "seeding user n. #{index + 1}"
   user = User.new(email: email, first_name: first_names[index],
-    last_name: last_names[index], password: '123456')
+    last_name: last_names[index], password: '123456',
+    address: Faker::Address.street_address)
 
     file = URI.open(user_photos[index])
     user.photo.attach(io: file, filename: "nes.png", content_type: "image/png")
@@ -149,14 +150,14 @@ Property.create!({ title: "property2", user: User.find_by(first_name: "Humberto"
 
   # job4property1 has a review by the manager about the cleaner
   # The cleaner is Ben in this case, can be linked through job_applications table: person with status completed for the job
-  Review.create!( {job: Job.find_by(description: "job4property1" ), user: User.find_by(first_name: "Humberto"), rating: 4 })
+  Review.create!( {job: Job.find_by(description: "job4property1" ), user: User.find_by(first_name: "Humberto"), rating: 4, description: "Ben did a great job" })
 
   # job4property1 has a review by the cleaner about the property
-  Review.create!( {job: Job.find_by(description: "job4property1" ), user: User.find_by(first_name: "Ben"), rating: 3 })
+  Review.create!( {job: Job.find_by(description: "job4property1" ), user: User.find_by(first_name: "Ben"), rating: 3, description: "The property was very dirty" })
 
   # job2property2 has a review by the manager about the cleaner.
   # The cleaner is Pedro in this case, can be linked through job_applications table: person with status completed for the job
-  Review.create!( {job: Job.find_by(description: "job2property2" ), user: User.find_by(first_name: "Humberto"), rating: 5 })
 
+  Review.create!( {job: Job.find_by(description: "job2property1" ), user: User.find_by(first_name: "Humberto"), rating: 5, description: "Pedro did a awful job" })
 
   puts "Completed seeds"
