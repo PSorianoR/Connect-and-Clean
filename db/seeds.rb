@@ -99,7 +99,7 @@ Property.create!({ title: "property2", user: User.find_by(first_name: "Humberto"
   Job.create!({ property: Property.first, price: 25, status: "accepted", user: User.find_by(first_name: "Humberto"), description: "job3property1" })
   Job.create!({ property: Property.first, price: 25, status: "completed", user: User.find_by(first_name: "Humberto"), description: "job4property1" })
 
-   # first property has 2 jobs: 1 applied, 1 completed
+   # second property has 2 jobs: 1 applied, 1 completed
    Job.create!({ property: Property.last, price: 35, status: "applied", user: User.find_by(first_name: "Matt"), description: "job1property2" })
    Job.create!({ property: Property.last, price: 35, status: "completed", user: User.find_by(first_name: "Humberto"), description: "job2property2" })
 

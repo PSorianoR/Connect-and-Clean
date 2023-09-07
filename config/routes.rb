@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :properties do
     resources :jobs, only: %i[index show new create]
-    resources :employees, only: %i[create destroy]
+    resources :teams, only: %i[create destroy]
   end
 
   resources :jobs, only: %i[index show] do
@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   resources :users, only: %i[show]
 
   get 'dashboard', to: "users#dashboard", as: "dashboard"
+  post 'mode', to: "users#mode", as: "mode"
+
   # Defines the root path route ("/")
   # root "articles#index"
 end
