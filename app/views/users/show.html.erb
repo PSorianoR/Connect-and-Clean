@@ -3,27 +3,35 @@
             <div class="col-md-4">
                 <!-- Profile Photo -->
                 <% if current_user.photo.attached?  %>
-                  <a class="nav-link" href="#" data-bs-toggle="dropdown"><%= cl_image_tag current_user.photo.key, class:"img-fluid rounded-circle", width: 600, height: 600, crop: :fill %></a>
+                  <a class="nav-link" href="#" data-bs-toggle="dropdown"><%= cl_image_tag @user.photo.key, class:"img-fluid rounded-circle", width: 600, height: 600, crop: :fill %></a>
                 <% else %>
                   <a class="nav-link" href="#" data-bs-toggle="dropdown"><img src="https://images.nightcafe.studio//assets/profile.png?tr=w-640,c-at_max" alt="Image not found" class= "avatar dropdown-toggle"></a>
                 <% end %>
             </div>
             <div class="col-md-8">
-                <!-- Profile Information -->
-                <h1><%= @user.first_name %></h1>
-                <p>Years Hosting: 3 Years</p>
-                <p>Email: <%= @user.email %></p>
-                <p>Rating: 5 Stars</p>
-                <p>Reviews: 3 review</p>
-                <p>Location: Rio de Janeiro</p>
-                <p>Information Confirmed:information_confirmed ? 'Yes' : 'No'</p>
-                <!-- About Profile Section -->
-                <h2>About Me</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vitae justo eu elit bibendum consectetur.</p>
-                <!-- Edit Profile Button -->
-                <% if current_user == @user %>
-                  <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-primary" %>
+              <!-- Profile Information -->
+              <h1><%= @user.first_name %></h1>
+              <p>Years Hosting: 3 Years</p>
+              <p>Email: <%= @user.email %></p>
+              <p>Rating: 5 Stars</p>
+              <!-- Reviews Section -->
+              <div class="reviews">
+                <h2>Reviews</h2>
+                <% @user.reviews.each do |review| %>
+                  <div class="review">
+                    <p><%= review.description %></p>
+                    <h3>Rating: <%= review.rating %></h3>
+                  </div>
                 <% end %>
+              </div>
+              <p>Location: <%= @user.address %></p>
+              <!-- About Profile Section -->
+              <h2>About Me</h2>
+              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vitae justo eu elit bibendum consectetur.</p>
+              <!-- Edit Profile Button -->
+              <% if current_user == @user %>
+                <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-primary" %>
+              <% end %>
             </div>
         </div>
     </div>
