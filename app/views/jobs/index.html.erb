@@ -4,24 +4,26 @@
 <p>jobs home page</p>
 
 <ul id="jobList">
-<% @jobs.each do |job| %>
-<div class="job-listing d-flex justify-content-between container align-items-center custom-container-height rounded-md">
-  <img src="https://www.thehousedesigners.com/images/uploads/SiteImage-Landing-modern-house-plans-1.webp" class="custom-image-width col-2" />
-  <div class="col-7">
-  <div class="job-info">
-    <h2><%= job.price %></h2>
-    <p><%= job.description %></p>
-  </div>
-  </div>
+<% if @jobs%>
+  <% @jobs.each do |job| %>
+  <div class="job-listing d-flex justify-content-between container align-items-center custom-container-height rounded-md">
+    <img src="https://www.thehousedesigners.com/images/uploads/SiteImage-Landing-modern-house-plans-1.webp" class="custom-image-width col-2" />
+    <div class="col-7">
+    <div class="job-info">
+      <h2><%= job.price %></h2>
+      <p><%= job.description %></p>
+    </div>
+    </div>
 
-  <div class="date-created col-2">
-  <p class="align-items-center"><%= job.date_of_job %></p>
-  <p class="current-status"><%= job.status %></p>
+    <div class="date-created col-2">
+    <p class="align-items-center"><%= job.date_of_job %></p>
+    <p class="current-status"><%= job.status %></p>
+    </div>
+    <img src="https://headshotphotos.ca/wp-content/uploads/headshotphotos.ca_.jpg" alt="User Icon" class="user-icon float-right col-1" />
+
+
   </div>
-  <img src="https://headshotphotos.ca/wp-content/uploads/headshotphotos.ca_.jpg" alt="User Icon" class="user-icon float-right col-1" />
-
-
-</div>
+  <% end %>
 <% end %>
 </ul>
 
