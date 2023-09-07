@@ -16,6 +16,9 @@ emails = ["humberto@lewagon.com", "matt@lewagon.com", "ben@lewagon.com", "pedro@
 first_names = ["Humberto", "Matt", "Ben", "Pedro"]
 last_names = ["Pedra", "Mcgoovern", "Van Dam", "Soriano"]
 
+user_photos = ["https://ca.slack-edge.com/T02NE0241-U05H2NBRFFY-2422604e0f19-512", "https://ca.slack-edge.com/T02NE0241-U05HJTYFZHP-e8affc977624-512", "https://ca.slack-edge.com/T02NE0241-U05GUFPNAF9-29d236e53e03-512", "https://ca.slack-edge.com/T02NE0241-U05GAH9GN5D-d73433a0850a-512"]
+
+
 puts "Starting to seed..."
 
 puts "Seeding users..."
@@ -23,6 +26,8 @@ puts "Seeding users..."
 emails.each_with_index do |email, index|
   user = User.new(email: email, first_name: first_names[index],
     last_name: last_names[index], password: '123456')
+    file = URI.open(user_photos[index])
+    user.photo.attach(io: file, filename: "prettyasiangirl.png", content_type: "image/png")
     user.save!
   array_of_users << user
 end
@@ -94,7 +99,7 @@ Property.create!({ title: "property2", user: User.find_by(first_name: "Humberto"
   Job.create!({ property: Property.first, price: 25, status: "accepted", user: User.find_by(first_name: "Humberto"), description: "job3property1" })
   Job.create!({ property: Property.first, price: 25, status: "completed", user: User.find_by(first_name: "Humberto"), description: "job4property1" })
 
-   # first property has 2 jobs: 1 applied, 1 completed
+   # second property has 2 jobs: 1 applied, 1 completed
    Job.create!({ property: Property.last, price: 35, status: "applied", user: User.find_by(first_name: "Matt"), description: "job1property2" })
    Job.create!({ property: Property.last, price: 35, status: "completed", user: User.find_by(first_name: "Humberto"), description: "job2property2" })
 

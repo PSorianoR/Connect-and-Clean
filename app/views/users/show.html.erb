@@ -17,7 +17,9 @@
                 <h2>About Me</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vitae justo eu elit bibendum consectetur.</p>
                 <!-- Edit Profile Button -->
-                <a href="#" class="btn btn-primary">Edit Profile</a>
+                <% if current_user == @user %>
+                  <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-primary" %>
+                <% end %>
             </div>
         </div>
     </div>
