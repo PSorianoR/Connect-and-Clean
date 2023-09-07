@@ -41,7 +41,8 @@ module ReviewsHelper
   end
 
   def property_reviews(property)
-    # These are all the reviews that cleaners wrote about the property. It is therefore the review about the manager
+    # These are all the reviews that cleaners wrote about the property.
+    # It is therefore the review from the cleaner about the manager
     jobs = property.jobs.where(status: "completed")
 
     reviews = jobs.map do |job|

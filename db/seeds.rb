@@ -10,24 +10,33 @@ require "open-uri"
 require "faker"
 
 User.destroy_all
+Property.destroy_all
+Team.destroy_all
+Job.destroy_all
+JobApplication.destroy_all
+Role.destroy_all
+Review.destroy_all
 
 array_of_users = []
 emails = ["humberto@lewagon.com", "matt@lewagon.com", "ben@lewagon.com", "pedro@lewagon.com" ]
 first_names = ["Humberto", "Matt", "Ben", "Pedro"]
 last_names = ["Pedra", "Mcgoovern", "Van Dam", "Soriano"]
 
-user_photos = ["https://ca.slack-edge.com/T02NE0241-U05H2NBRFFY-2422604e0f19-512", "https://ca.slack-edge.com/T02NE0241-U05HJTYFZHP-e8affc977624-512", "https://ca.slack-edge.com/T02NE0241-U05GUFPNAF9-29d236e53e03-512", "https://ca.slack-edge.com/T02NE0241-U05GAH9GN5D-d73433a0850a-512"]
-
+user_photos = ["https://ca.slack-edge.com/T02NE0241-U05H2NBRFFY-2422604e0f19-512", "https://ca.slack-edge.com/T02NE0241-U05HJTYFZHP-e8affc977624-512","https://ca.slack-edge.com/T02NE0241-U05GUFPNAF9-29d236e53e03-512", "https://ca.slack-edge.com/T02NE0241-U05GAH9GN5D-d73433a0850a-512"]
 
 puts "Starting to seed..."
 
 puts "Seeding users..."
 
 emails.each_with_index do |email, index|
+
+
+  puts "seeding user n. #{index + 1}"
   user = User.new(email: email, first_name: first_names[index],
     last_name: last_names[index], password: '123456')
+
     file = URI.open(user_photos[index])
-    user.photo.attach(io: file, filename: "prettyasiangirl.png", content_type: "image/png")
+    user.photo.attach(io: file, filename: "nes.png", content_type: "image/png")
     user.save!
   array_of_users << user
 end
