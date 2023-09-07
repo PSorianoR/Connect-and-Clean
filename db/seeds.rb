@@ -154,9 +154,9 @@ Property.create!({ title: "property2", user: User.find_by(first_name: "Humberto"
   # job4property1 has a review by the cleaner about the property
   Review.create!( {job: Job.find_by(description: "job4property1" ), user: User.find_by(first_name: "Ben"), rating: 3 })
 
-  # job2property1 has a review by the manager about the cleaner.
+  # job2property2 has a review by the manager about the cleaner.
   # The cleaner is Pedro in this case, can be linked through job_applications table: person with status completed for the job
-  Review.create!( {job: Job.find_by(description: "job2property1" ), user: User.find_by(first_name: "Humberto"), rating: 5 })
+  Review.create!( {job: Job.find_by(description: "job2property2" ), user: User.find_by(first_name: "Humberto"), rating: 5 })
 
 
   puts "Completed seeds"

@@ -2,7 +2,6 @@ class Property < ApplicationRecord
   belongs_to :user
   has_many :jobs, dependent: :destroy
   has_many :teams, dependent: :destroy
-  has_many :cleaners, through: :teams
 
   # validates :title, presence: true
   # validates :address, presence: true
