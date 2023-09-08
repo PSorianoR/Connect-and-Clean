@@ -31,10 +31,14 @@ module ReviewsHelper
 
   def manager_all_reviews(manager)
     # These are the all the reviews that cleaners wrote about the job that the manager created.
-    jobs = manager.jobs.where(user: manager, status:"completed")
+    jobs = manager.jobs.where(user: manager, status: "completed")
 
     reviews = jobs.map do |job|
       manager_review(job)
+    end
+
+    reviews.reject! do |review|
+      review.nil?
     end
 
     return reviews
