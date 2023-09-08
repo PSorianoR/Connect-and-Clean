@@ -1,3 +1,5 @@
+include ReviewsHelper
+
 class UsersController < ApplicationController
   before_action :set_user, only: %i[show]
   before_action :set_mode_params, only: [:mode]
@@ -5,6 +7,8 @@ class UsersController < ApplicationController
 
   def show
     # You can customize this action to display the user's information and other related data.
+    @cleaner_reviews = cleaner_all_reviews(@user)
+    @manager_reviews = manager_all_reviews(@user)
   end
 
   def mode
@@ -13,7 +17,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.json { render json: { success: true, role: session[:user_role] } }
-     end
+    end
   end
 
   private

@@ -23,6 +23,20 @@
                     <h3>Rating: <%= review.rating %></h3>
                   </div>
                 <% end %>
+                <h2>Cleaner Reviews</h2>
+                <% @cleaner_reviews.each do |review| %>
+                  <div class="review">
+                    <p><%= review.description %></p>
+                    <h3>Rating: <%= review.rating %></h3>
+                  </div>
+                <% end %>
+                <h2>Manager Reviews</h2>
+                <% @manager_reviews.each do |review| %>
+                  <div class="review">
+                    <p><%= review.description %></p>
+                    <h3>Rating: <%= review.rating %></h3>
+                  </div>
+                <% end %>
               </div>
               <p>Location: <%= @user.address %></p>
               <!-- About Profile Section -->
