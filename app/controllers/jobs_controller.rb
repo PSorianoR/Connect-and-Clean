@@ -16,6 +16,8 @@ class JobsController < ApplicationController
   end
 
   def new
+    @job = Job.new
+    @property = Property.find(params[:property_id])
   end
 
   def create

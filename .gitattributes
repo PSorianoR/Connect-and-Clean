@@ -5,3 +5,9 @@ db/schema.rb linguist-generated
 
 # Mark any vendored files as having been vendored.
 vendor/* linguist-vendored
+
+# Geocoder
+MAPBOX_API_KEY=pk.eyJ1IjoibWF0dG1jZ292ZXJuMjUiLCJhIjoiY2xtOWpkZWZoMGxvZzNwcGM1Yzlmd2k3diJ9.9EkXzkecaVXwJHGJqIShpQ
+
+# Cloudinary
+CLOUDINARY_URL=cloudinary://291611549639619:nlq5JurXf0OVgyTHDGnpA8QcDHo@dgabkyhfa
