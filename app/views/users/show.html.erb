@@ -13,28 +13,23 @@
               <h1><%= @user.first_name %></h1>
               <p>Years Hosting: 3 Years</p>
               <p>Email: <%= @user.email %></p>
-              <p>Rating: 5 Stars</p>
+              <p><strong>Rating:</strong> <%= render partial: 'users/star_rating', locals: { user: @user } %></p>
               <!-- Reviews Section -->
               <div class="reviews">
-                <h2>Reviews</h2>
-                <% @user.reviews.each do |review| %>
-                  <div class="review">
-                    <p><%= review.description %></p>
-                    <h3>Rating: <%= review.rating %></h3>
-                  </div>
-                <% end %>
-                <h2>Cleaner Reviews</h2>
+
+                <h2><%= @user.first_name %>´s Reviews</h2>
                 <% @cleaner_reviews.each do |review| %>
                   <div class="review">
+                  <h3><strong>Reviewer:</strong> <%= review.user.first_name %></h3>
                     <p><%= review.description %></p>
-                    <h3>Rating: <%= review.rating %></h3>
+                    <p><strong>Rating:</strong> <%= review.rating %></p>
                   </div>
                 <% end %>
                 <h2>Manager Reviews</h2>
                 <% @manager_reviews.each do |review| %>
                   <div class="review">
                     <p><%= review.description %></p>
-                    <h3>Rating: <%= review.rating %></h3>
+                    <p>Rating: <%= review.rating %></p>
                   </div>
                 <% end %>
               </div>

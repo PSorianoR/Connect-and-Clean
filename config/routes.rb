@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :jobs, only: %i[index show new] do
     resources :job_applications, only: %i[create update]
-    resources :reviews, only: %i[create]
+    resources :reviews, only: %i[create new]
   end
 
   resources :users, only: %i[show]
