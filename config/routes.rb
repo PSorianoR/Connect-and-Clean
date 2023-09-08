@@ -5,11 +5,11 @@ Rails.application.routes.draw do
   root to: "pages#home"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   resources :properties do
-    resources :jobs, only: %i[index show new create]
+    resources :jobs, only: %i[index show create]
     resources :teams, only: %i[create destroy]
   end
 
-  resources :jobs, only: %i[index show] do
+  resources :jobs, only: %i[index show new] do
     resources :job_applications, only: %i[create update]
     resources :reviews, only: %i[create]
   end
