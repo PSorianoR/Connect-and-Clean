@@ -1,18 +1,10 @@
-<<<<<<< HEAD
-<%= simple_form_for [@property, @job] do |f| %>
-  <%= f.association :property %>
-=======
 <%= simple_form_for [@job] do |f| %>
->>>>>>> c33b0e96fcd25e6536d21a0cfab65ff936e8f004
   <%= f.input :price, input_html: { value: @property.default_job_price } %>
   <%= f.input :description %>
   <%= f.input :date_of_job %>
   <%= f.input :cleaning_from, input_html: { value: @property.default_cleaning_from }  %>
   <%= f.input :cleaning_until, input_html: { value: @property.default_cleaning_until }  %>
-<<<<<<< HEAD
-=======
   <%= f.association :property %>
->>>>>>> c33b0e96fcd25e6536d21a0cfab65ff936e8f004
   <%# <%= f.collection_check_boxes :options, [[true, 'My Cleaners'], [false, 'Everyone']], :first, :last %>
   <%= f.submit %>
 <% end %>
