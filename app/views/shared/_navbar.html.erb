@@ -34,18 +34,20 @@
             <% end %>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
               <button
-                    class="dropdown-item"
-                    data-action="click->navbar#disableManagerMode"
-                    data-navbar-target="managerLinkText">
-                    Switch to Cleaner Mode
-                  </button>
-                  <button
-                    class="dropdown-item d-none"
-                    data-action="click->navbar#enableManagerMode"
-                    data-navbar-target="cleanerLinkText">
-                    Switch to Manager Mode
-                  </button>
-                  <%= link_to "My Profile", user_path(current_user), class: "dropdown-item" %>
+                class="dropdown-item"
+                data-action="click->navbar#disableManagerMode"
+                data-navbar-target="managerLinkText"
+                >
+                Switch to Cleaner Mode
+              </button>
+              <button
+                class="dropdown-item d-none"
+                data-action="click->navbar#enableManagerMode"
+                data-navbar-target="cleanerLinkText"
+                >
+                Switch to Manager Mode
+              </button>
+              <%= link_to "My Profile", user_path(current_user), class: "dropdown-item" %>
               <%= link_to "Log out", destroy_user_session_path, data: {turbo_method: :delete}, class: "dropdown-item" %>
             </div>
           </li>

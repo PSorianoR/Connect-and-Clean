@@ -4,11 +4,7 @@ class JobsController < ApplicationController
     if session[:user_role] == "manager"
       profession = "management"
       get_job(profession)
-      # managementTeams = user.teams.where(profession: "management")
-      # @jobs = []
-      # managementTeams.each do |managementTeam|
-      #   @jobs += managementTeam.property.jobs
-      # end
+
     elsif session[:user_role] == "cleaner"
       profession = "cleaning"
       get_job(profession)

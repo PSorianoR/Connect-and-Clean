@@ -57,6 +57,25 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_07_194812) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "employees", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "property_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["property_id"], name: "index_employees_on_property_id"
+    t.index ["user_id"], name: "index_employees_on_user_id"
+  end
+
+  create_table "japplications", force: :cascade do |t|
+    t.string "status"
+    t.bigint "user_id", null: false
+    t.bigint "job_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["job_id"], name: "index_japplications_on_job_id"
+    t.index ["user_id"], name: "index_japplications_on_user_id"
+  end
+
   create_table "job_applications", force: :cascade do |t|
     t.string "status"
     t.bigint "user_id", null: false
@@ -106,11 +125,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_07_194812) do
     t.float "default_job_price"
     t.string "default_cleaning_from"
     t.string "default_cleaning_until"
-    t.float "lat"
-    t.float "long"
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.float "latitude"
+    t.float "longitude"
     t.index ["user_id"], name: "index_properties_on_user_id"
   end
 
@@ -163,6 +182,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_07_194812) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "chatroom_members", "chatrooms"
   add_foreign_key "chatroom_members", "users"
+  add_foreign_key "employees", "properties"
+  add_foreign_key "employees", "users"
+  add_foreign_key "japplications", "jobs"
+  add_foreign_key "japplications", "users"
   add_foreign_key "job_applications", "jobs"
   add_foreign_key "job_applications", "users"
   add_foreign_key "job_chats", "chatrooms"
