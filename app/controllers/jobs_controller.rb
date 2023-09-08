@@ -21,6 +21,15 @@ class JobsController < ApplicationController
   end
 
   def create
+    @job = Job.new(job_params)
+    @property = Property.find(params[:property_id])
+    @job.property = @property
+    @job.status = "Open"
+    if @job.save!
+      redirect_to property_jobs_path(@property), notice: 'Job was successfully created.'
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -29,9 +38,9 @@ class JobsController < ApplicationController
   def get_job(selected_profession)
     user = current_user
     teams = user.teams.where(profession: selected_profession)
-      @jobs = []
+    @jobs = []
     teams.each do |team|
-      @jobs += team.property.jobs
+    @jobs += team.property.jobs
     end
   end
 
@@ -40,5 +49,11 @@ class JobsController < ApplicationController
       job.job_applications.where(user_id: current_user.id, status: "rejected").exists? ||
       job.job_applications.where(status: ["accepted", "completed"]).where.not(user_id: current_user.id).exists?
     end
+  end
+
+  private
+
+  def job_params
+    params.require(:job).permit(:title, :description, :price, :cleaning_from, :cleaning_until, :property)
   end
 end
