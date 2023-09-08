@@ -68,11 +68,10 @@ end
 puts "Seeding properties..."
 
 Property.create!({ title: "property1", user: User.find_by(first_name: "Humberto"),
-  address: "Rua Republica do Peru 326, Copacabana, Rio De Janeiro, Brazil"})
+  address: "Rua Republica do Peru 326, Copacabana, Rio De Janeiro, Brazil", default_job_price: 25, default_cleaning_from: "11:00", default_cleaning_until: "14:00"})
 
 Property.create!({ title: "property2", user: User.find_by(first_name: "Humberto"),
-  address: "Carnotstraat 152, 2060 Antwerpen, Belgium"})
-
+  address: "Carnotstraat 152, 2060 Antwerpen, Belgium", default_job_price: 35, default_cleaning_from: "10:00", default_cleaning_until: "12:00"})
 
   puts "Seeding teams..."
 
@@ -108,6 +107,7 @@ Property.create!({ title: "property2", user: User.find_by(first_name: "Humberto"
   Job.create!({ property: Property.first, price: 25, status: "applied", user: User.find_by(first_name: "Humberto"), description: "job2property1" })
   Job.create!({ property: Property.first, price: 25, status: "accepted", user: User.find_by(first_name: "Humberto"), description: "job3property1" })
   Job.create!({ property: Property.first, price: 25, status: "completed", user: User.find_by(first_name: "Humberto"), description: "job4property1" })
+  Job.create!({ property: Property.first, price: 100, status: "completed", user: User.find_by(first_name: "Humberto"), description: "job5property1" })
 
    # second property has 2 jobs: 1 applied, 1 completed
    Job.create!({ property: Property.last, price: 35, status: "applied", user: User.find_by(first_name: "Matt"), description: "job1property2" })
@@ -134,7 +134,7 @@ Property.create!({ title: "property2", user: User.find_by(first_name: "Humberto"
 
   # job4property1 was completed by Ben
   JobApplication.create!({ user: User.find_by(first_name: "Ben"), job: Job.find_by(description: "job4property1" ), status: "completed" })
-
+  JobApplication.create!({ user: User.find_by(first_name: "Ben"), job: Job.find_by(description: "job5property1" ), status: "completed" })
   # job1property2 has two application by Pedro and Ben. They need to apply because they are not in the cleaning team.
   # The job was rejected by Matt
   JobApplication.create!({ user: User.find_by(first_name: "Pedro"), job: Job.find_by(description: "job1property2" ), status: "applied" })
@@ -151,13 +151,12 @@ Property.create!({ title: "property2", user: User.find_by(first_name: "Humberto"
   # job4property1 has a review by the manager about the cleaner
   # The cleaner is Ben in this case, can be linked through job_applications table: person with status completed for the job
   Review.create!( {job: Job.find_by(description: "job4property1" ), user: User.find_by(first_name: "Humberto"), rating: 4, description: "Ben did a great job" })
-
   # job4property1 has a review by the cleaner about the property
   Review.create!( {job: Job.find_by(description: "job4property1" ), user: User.find_by(first_name: "Ben"), rating: 3, description: "The property was very dirty" })
 
   # job2property2 has a review by the manager about the cleaner.
   # The cleaner is Pedro in this case, can be linked through job_applications table: person with status completed for the job
 
-  Review.create!( {job: Job.find_by(description: "job2property1" ), user: User.find_by(first_name: "Humberto"), rating: 5, description: "Pedro did a awful job" })
+  Review.create!( {job: Job.find_by(description: "job2property1" ), user: User.find_by(first_name: "Humberto"), rating: 2, description: "Pedro did a awful job" })
 
   puts "Completed seeds"
