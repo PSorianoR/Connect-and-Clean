@@ -17,7 +17,6 @@ class JobsController < ApplicationController
 
   def new
     @job = Job.new
-    # @property = Property.find(params[:property_id])
     @properties = current_user.properties
   end
 
