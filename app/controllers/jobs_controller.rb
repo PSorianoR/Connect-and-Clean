@@ -17,11 +17,7 @@ class JobsController < ApplicationController
 
   def new
     @job = Job.new
-<<<<<<< HEAD
-    @property = Property.find(params[:property_id])
-=======
     @properties = current_user.properties
->>>>>>> c33b0e96fcd25e6536d21a0cfab65ff936e8f004
   end
 
   def create
