@@ -1,8 +1,8 @@
 <h1>Write a review for
   <% if session[:user_role] == "manager" %>
-    <strong><%= User.find(@job.job_applications.find_by(status: "completed").user_id).first_name%></strong>
+    cleaner <strong><%= User.find(@job.job_applications.find_by(status: "completed").user_id).first_name%></strong>
   <% else %>
-    cleaner <strong><%= User.find(@job.user_id).first_name %></strong>
+    <strong><%= User.find(@job.user_id).first_name %></strong>
   <% end %>
 </h1>
 
