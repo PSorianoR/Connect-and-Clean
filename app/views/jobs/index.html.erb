@@ -11,6 +11,15 @@
       <div class="job-info">
         <h2><%= job.price %></h2>
         <p><%= job.description %></p>
+        <% if session[:user_role] == "cleaner" %>
+          <div>
+            <%= simple_form_for(job.user, url: chatrooms_path, method: :post) do |form| %>
+                <%= form.hidden_field :user_id, value: job.user.id %>
+                <%= form.hidden_field :job_id, value: job.id %>
+                <%= form.button :submit, job.user.first_name %>
+              <% end %>
+          </div>
+        <% end %>
       </div>
       </div>
 

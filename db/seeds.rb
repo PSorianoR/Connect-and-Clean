@@ -16,6 +16,7 @@ Job.destroy_all
 JobApplication.destroy_all
 Role.destroy_all
 Review.destroy_all
+Chatroom.destroy_all
 
 array_of_users = []
 emails = ["humberto@lewagon.com", "matt@lewagon.com", "ben@lewagon.com", "pedro@lewagon.com" ]

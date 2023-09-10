@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_09_140827) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_09_221225) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -47,6 +47,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_140827) do
     t.bigint "chatroom_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "profession"
     t.index ["chatroom_id"], name: "index_chatroom_members_on_chatroom_id"
     t.index ["user_id"], name: "index_chatroom_members_on_user_id"
   end
@@ -115,7 +116,11 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_140827) do
     t.bigint "chatroom_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.bigint "job_id"
     t.index ["chatroom_id"], name: "index_messages_on_chatroom_id"
+    t.index ["job_id"], name: "index_messages_on_job_id"
+    t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
   create_table "properties", force: :cascade do |t|
@@ -193,6 +198,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_09_140827) do
   add_foreign_key "jobs", "properties"
   add_foreign_key "jobs", "users"
   add_foreign_key "messages", "chatrooms"
+  add_foreign_key "messages", "jobs"
+  add_foreign_key "messages", "users"
   add_foreign_key "properties", "users"
   add_foreign_key "reviews", "jobs"
   add_foreign_key "reviews", "users"
