@@ -4,7 +4,8 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
 
   static targets = ["propertySelect","propertyPrice", "propertyFrom",
-                    "propertyUntil", "cleaners", "myTeam", "cleanersButton", "everyoneButton"];
+                    "propertyUntil", "cleaners", "myTeam", "cleanersButton",
+                    "everyoneButton", "postAll"];
 
   connect() {
 
@@ -64,6 +65,8 @@ export default class extends Controller {
 
     this.cleanersButtonTarget.classList.add("btn-success");
     this.everyoneButtonTarget.classList.remove("btn-success");
+
+    this.postAllTarget.value = "false";
   }
   eraseCleaners(event) {
     event.preventDefault()
@@ -74,6 +77,8 @@ export default class extends Controller {
 
     this.cleanersButtonTarget.classList.remove("btn-success");
     this.everyoneButtonTarget.classList.add("btn-success");
+
+    this.postAllTarget.value = "true";
   }
 
 }

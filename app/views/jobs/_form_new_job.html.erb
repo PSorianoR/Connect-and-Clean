@@ -11,6 +11,7 @@
       <button data-action="click->job-form#selectCleaners" data-job-form-target = "cleanersButton" class="btn border border-2">My Cleaners</button>
       <button data-action="click->job-form#eraseCleaners" data-job-form-target = "everyoneButton" class="btn border border-4">Everyone</button>
     </div>
+    <%= f.hidden_field :post_all, data: { job_form_target: 'postAll' }  %>
     <div data-job-form-target="cleaners" class="list-group"></div>
     <%= f.submit class:"mx-auto mt-4 btn btn-primary" %>
   <% end %>

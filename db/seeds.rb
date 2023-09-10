@@ -105,7 +105,7 @@ Property.create!({ title: "property2", user: User.find_by(first_name: "Humberto"
 
   # first property has 4 jobs: 1 Open, 1 applied, 1 accepted, 1 completed
   Job.create!({ property: Property.first, price: 25, status: "open", user: User.find_by(first_name: "Humberto"), description: "job1property1" })
-  Job.create!({ property: Property.first, price: 25, status: "applied", user: User.find_by(first_name: "Humberto"), description: "job2property1" })
+  Job.create!({ property: Property.first, price: 25, status: "applied", user: User.find_by(first_name: "Humberto"), description: "job2property1", post_all: true })
   Job.create!({ property: Property.first, price: 25, status: "accepted", user: User.find_by(first_name: "Humberto"), description: "job3property1" })
   Job.create!({ property: Property.first, price: 25, status: "completed", user: User.find_by(first_name: "Humberto"), description: "job4property1" })
   Job.create!({ property: Property.first, price: 100, status: "completed", user: User.find_by(first_name: "Humberto"), description: "job5property1" })
