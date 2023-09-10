@@ -6,7 +6,7 @@ class ChatroomsController < ApplicationController
 
   def show
     @message = Message.new
-    # @job_id = params[:job_id]
+    @job_id = params[:job_id]
   end
 
   def create
@@ -34,14 +34,11 @@ class ChatroomsController < ApplicationController
       end
     end
 
-    # if job_id = params[:user][:job_id]
-    #   redirect_to chatroom_path(@chatroom, job_id: job_id)
-    # else
-    #   redirect_to chatroom_path(@chatroom)
-    # end
-
-    redirect_to chatroom_path(@chatroom)
-
+    if job_id = params[:user][:job_id]
+      redirect_to chatroom_path(@chatroom, job_id: job_id)
+    else
+      redirect_to chatroom_path(@chatroom)
+    end
   end
 
   private

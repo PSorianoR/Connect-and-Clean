@@ -1,10 +1,13 @@
 <div id="message-<%= message.id %>">
+  <% if message.job %>
+    <div class="cleaning-job-message mt-3">
+      <strong>Message for the <%= link_to "cleaning job", message.job %> on <%= message.job.date_of_job %></strong><br>
+      <small class="text-muted">for property </small><strong><%= message.job.property.title %></strong>
+    </div>
+  <% end %>
   <small>
     <strong><%= message.user.first_name %></strong>
     <i><%= message.created_at.strftime("%a %b %e at %l:%M %p") %></i>
   </small>
-  <%# <% if message.job %>
-    <%# <p>Job ID<%= message.job.id %>
-  <%# <% end %>
   <p><%= message.content %></p>
 </div>

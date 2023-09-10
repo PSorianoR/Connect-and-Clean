@@ -4,14 +4,15 @@ class MessagesController < ApplicationController
     @message = Message.new(message_params)
     @message.chatroom = @chatroom
     @message.user = current_user
-    # if Job.find(params[:job_id])
-    #   @message.job = Job.find(params[:job_id])
-    #   raise
-    # end
+    if params[:message][:job_id].present?
+      job = Job.find_by(id: params[:message][:job_id])
+      @message.job = job if job
+    end
     if @message.save
       ChatroomChannel.broadcast_to(
         @chatroom,
-        render_to_string(partial: "message", locals: {message: @message})
+        message: render_to_string(partial: "message", locals: {message: @message}),
+        sender_id: @message.user.id
       )
       head :ok
     else
