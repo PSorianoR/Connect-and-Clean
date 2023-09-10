@@ -79,23 +79,23 @@ Property.create!({ title: "property2", user: User.find_by(first_name: "Humberto"
   # Creating managers for a property
 
     #First property only has the owner as manager (created by default when someone creates a property)
-    Team.create!({ user: User.find_by(first_name: "Humberto"), property: Property.first, profession: "management"})
+    Team.create!({ user: User.find_by(first_name: "Humberto"), property: Property.first, profession: "manager"})
 
 
     # Second property has three managers:
-  Team.create!({ user: User.find_by(first_name: "Humberto"), property: Property.last, profession: "management"})
-  Team.create!({ user: User.find_by(first_name: "Matt"), property: Property.last, profession: "management"})
-  Team.create!({ user: User.find_by(first_name: "Pedro"), property: Property.last, profession: "management" } )
+  Team.create!({ user: User.find_by(first_name: "Humberto"), property: Property.last, profession: "manager"})
+  Team.create!({ user: User.find_by(first_name: "Matt"), property: Property.last, profession: "manager"})
+  Team.create!({ user: User.find_by(first_name: "Pedro"), property: Property.last, profession: "manager" } )
 
 
   # Creating cleaners for a property
 
   # first property has two cleaners:
-  Team.create!({ user: User.find_by(first_name: "Ben"), property: Property.first, profession: "cleaning" })
-  Team.create!({ user: User.find_by(first_name: "Pedro"), property: Property.first, profession: "cleaning" })
+  Team.create!({ user: User.find_by(first_name: "Ben"), property: Property.first, profession: "cleaner" })
+  Team.create!({ user: User.find_by(first_name: "Pedro"), property: Property.first, profession: "cleaner" })
 
   # Second property has one cleaner
-  Team.create!({ user: User.find_by(first_name: "Matt"), property: Property.last, profession: "cleaning" })
+  Team.create!({ user: User.find_by(first_name: "Matt"), property: Property.last, profession: "cleaner" })
 
 
   puts "Seeding jobs..."

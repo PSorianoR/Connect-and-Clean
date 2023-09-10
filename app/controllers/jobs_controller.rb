@@ -17,7 +17,7 @@ class JobsController < ApplicationController
 
   def new
     @job = Job.new
-    @properties = current_user.properties
+    @properties = current_user.teams.where(profession: "manager").map(&:property)
   end
 
   def create

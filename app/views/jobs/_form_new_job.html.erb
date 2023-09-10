@@ -1,10 +1,15 @@
-<%= simple_form_for [@job] do |f| %>
-  <%= f.input :price, input_html: { value: @property.default_job_price } %>
-  <%= f.input :description %>
-  <%= f.input :date_of_job %>
-  <%= f.input :cleaning_from, input_html: { value: @property.default_cleaning_from }  %>
-  <%= f.input :cleaning_until, input_html: { value: @property.default_cleaning_until }  %>
-  <%= f.association :property %>
-  <%# <%= f.collection_check_boxes :options, [[true, 'My Cleaners'], [false, 'Everyone']], :first, :last %>
-  <%= f.submit %>
-<% end %>
+<div data-controller="job-form">
+  <%= simple_form_for [@job] do |f| %>
+    <%= f.collection_select :property_id, @properties, :id, :title, { prompt: "Select a Property" }, data: { job_form_target: 'propertySelect', action: 'change->job-form#propertyInfo' } %>
+    <%= f.input :price, input_html: { data: { job_form_target: 'propertyPrice' } } %>
+    <%= f.input :cleaning_from, input_html: { data: { job_form_target: 'propertyFrom' } } %>
+    <%= f.input :cleaning_until, input_html: { data: { job_form_target: 'propertyUntil' } } %>
+    <%# <%= f.collection_check_boxes :options, [[true, 'My Cleaners'], [false, 'Everyone']], :first, :last %>
+    <button data-action="click->job-form#selectCleaners">My Cleaners</button>
+    <button data-action="click->job-form#unselectCleaners">Everyone</button>
+    <div data-job-form-target="cleaners"></div>
+    <%# <%= f.input :description %>
+    <%# <%= f.input :date_of_job %>
+    <%= f.submit %>
+  <% end %>
+</div>
