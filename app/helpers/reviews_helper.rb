@@ -18,6 +18,11 @@ module ReviewsHelper
     reviews = jobs.map do |job|
       cleaner_review(job)
     end
+
+    reviews.reject! do |review|
+      review.nil?
+    end
+
     return reviews
   end
 

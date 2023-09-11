@@ -13,6 +13,11 @@ class PropertiesController < ApplicationController
   end
 
   def show
+    @cleaners = @property.teams.where(profession: "cleaner").map(&:user)
+    respond_to do |format|
+      format.html # Render the HTML view as usual
+      format.json { render json: { property: @property, cleaners: @cleaners } } # Respond with JSON data
+    end
   end
 
   def new
