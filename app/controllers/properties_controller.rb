@@ -7,12 +7,22 @@ class PropertiesController < ApplicationController
     @markers = @properties.geocoded.map do |property|
       {
         lat: property.latitude,
-        lng: property.longitude
+        lng: property.longitude,
+        info_window_html: "<h1>Hello</h1>"
+        # render_to_string(partial: "info_window", locals: {flat: flat})
+        # info_window: render_to_string(partial: "info_window", locals: {property: property})
       }
     end
   end
 
   def show
+
+    @markers = [{
+        lat: @property.latitude,
+        lng: @property.longitude,
+        info_window_html: render_to_string(partial: "info_window", locals: {property: @property})
+      }]
+
     @cleaners = @property.teams.where(profession: "cleaner").map(&:user)
     respond_to do |format|
       format.html # Render the HTML view as usual
@@ -68,6 +78,7 @@ class PropertiesController < ApplicationController
     params.require(:property).permit(:title, :address, :description,
                                      :default_job_price, :default_cleaning_from,
                                      :default_cleaning_until, :team)
+  
   end
 
   def set_property
