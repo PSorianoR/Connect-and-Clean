@@ -1,2 +1,9 @@
 <h1>Jobs#show</h1>
-<p>Find me in app/views/jobs/show.html.erb</p>
+<p>JOB DETAILS SHOULD COME HERE</p>
+<p>Accept Job applicant</p>
+<% if @job.status = "applied" %>
+  <% @job.job_applications.each do |appl| %>
+    <% user = User.find(appl.user_id) %>
+    <%= link_to user.first_name, job_accept_cleaner_path(appl.job, user) %>
+  <% end %>
+<% end %>

@@ -1,0 +1,36 @@
+// To style the wrapping div
+.message-row {
+  margin-bottom: 10px;
+  padding: 8px;
+}
+
+// To style the message itself
+.sender-style, .receiver-style {
+  width: 70%;
+  max-width: 400px;
+  border-radius: 4px;
+  padding: 8px;
+  min-height: 80px;
+}
+
+.sender-style {
+  background-color: lightcoral;
+}
+
+.receiver-style {
+  background-color: lightblue;
+}
+
+.cleaning-job-message {
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+.cleaning-job-message strong {
+  color: #333;
+}
+.cleaning-job-message small {
+  color: #888;
+}

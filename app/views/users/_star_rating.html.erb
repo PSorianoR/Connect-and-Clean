@@ -1,0 +1,10 @@
+<div class="star-rating">
+  <% average_rating = @user.average_rating %>
+  <% 5.times do |i| %>
+    <% if average_rating >= (i + 1) %>
+      <i class="fas fa-star"></i>
+    <% else %>
+      <i class="far fa-star"></i>
+    <% end %>
+  <% end %>
+</div>

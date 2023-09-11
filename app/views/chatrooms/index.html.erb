@@ -1,0 +1,51 @@
+<h1 class="text-center mt-3">Chats</h1>
+
+<div class="container-fluid">
+  <div class="col-3">
+    <% if session[:user_role] == "manager"%>
+      <h2 class="my-3">My Active Chats with Cleaners</h2>
+    <% else %>
+      <h2 class="my-3">My Active Chats with Managers</h2>
+    <% end %>
+    <% new_user_chats = [] %>
+    <% User.all.each do |user| %>
+      <%# First find a chatroom of which both the users are chatroom members %>
+      <% common_chatrooms = user.chatroom_members.pluck(:chatroom_id) & current_user.chatroom_members.pluck(:chatroom_id) %>
+      <% if session[:user_role] == "manager"%>
+        <% common_chatroom = common_chatrooms.find do |chatroom_id| %>
+          <% chatroom = Chatroom.find(chatroom_id) %>
+          <%# Find the chats with cleaners, in which you are not the manager %>
+          <% chatroom.chatroom_members.find_by(user: user).profession == "cleaner" &&
+             user != current_user %>
+        <% end %>
+      <% elsif session[:user_role] == "cleaner"%>
+        <% common_chatroom = common_chatrooms.find do |chatroom_id| %>
+          <% chatroom = Chatroom.find(chatroom_id) %>
+           <%# Find the chats with managers, in which you are not the cleaner %>
+          <% chatroom.chatroom_members.find_by(user: user).profession == "manager" &&
+             user != current_user %>
+        <% end %>
+      <% end %>
+      <% if common_chatroom.present? %>
+        <%= render "form", user: user, chatroom: common_chatroom %>
+      <% else %>
+        <% new_user_chats << user if user != current_user %>
+      <% end %>
+    <% end %>
+    <% if session[:user_role] == "manager"%>
+      <h2 class="my-3">Chat with other Cleaners</h2>
+      <% new_user_chats.each do |user| %>
+        <% if user.roles.find_by(role: "cleaner") %>
+          <%= render "form", user: user %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <h2 class="my-3">Chat with other Managers</h2>
+      <% new_user_chats.each do |user| %>
+        <% if user.roles.find_by(role: "manager") %>
+          <%= render "form", user: user %>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

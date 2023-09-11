@@ -10,3 +10,14 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+.star-rating {
+  color: yellow; /* Set the color to yellow or your desired color */
+}
+
+.review {
+  background-color: white;
+  border: 1px solid #ddd; /* Add a border for separation */
+  padding: 10px;
+  margin-bottom: 15px; /* Add some space between reviews */
+}
