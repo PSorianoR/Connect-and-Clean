@@ -22,16 +22,22 @@ class PropertiesController < ApplicationController
 
   def new
     @property = Property.new
+    @team = Team.new
   end
 
   def create
     @property = Property.new(property_params)
     @property.user = current_user
+
+    array_of_managers = params[:property][:teams][:manager_id].compact_blank
+    array_of_cleaners = params[:property][:teams][:cleaner_id].compact_blank
+
+    create_teams(@property, array_of_managers, 'manager')
+    create_teams(@property, array_of_cleaners, 'cleaner')
+
     @team = Team.new
-    @team.property = @property
-    @team.user = current_user
-    @team.profession = 'Manager'
-    @property.teams << @team
+    user_to_manager(@team, @property)
+
     if @property.save
       redirect_to properties_path, notice: 'Property was successfully created.'
     else
@@ -61,9 +67,20 @@ class PropertiesController < ApplicationController
   def property_params
     params.require(:property).permit(:title, :address, :description,
                                      :default_job_price, :default_cleaning_from,
-                                     :default_cleaning_until)
+                                     :default_cleaning_until, :team)
   end
+
   def set_property
     @property = Property.find(params[:id])
+  end
+
+  def user_to_manager(team, property)
+    property.teams << Team.new(user_id: current_user.id, profession: 'manager')
+  end
+
+  def create_teams(property, user_ids, profession)
+    user_ids.each do |user_id|
+      property.teams << Team.new(user_id: user_id, profession: profession)
+    end
   end
 end

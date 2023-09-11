@@ -43,7 +43,7 @@
       <div class="mb-2">
         <p class="mb-2 text-secondary">Managers Team</p>
         <% @property.teams.each do |employee| %>
-          <% if employee.profession == "Manager" %>
+          <% if employee.profession == "manager" %>
             <p> <%= employee.user.first_name %></p>
           <% end %>
         <% end %>
