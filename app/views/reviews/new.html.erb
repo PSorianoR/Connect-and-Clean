@@ -1,7 +1,15 @@
+<h1>Write a review for
+  <% if session[:user_role] == "manager" %>
+    cleaner <strong><%= User.find(@job.job_applications.find_by(status: "completed").user_id).first_name%></strong>
+  <% else %>
+    <strong><%= User.find(@job.user_id).first_name %></strong>
+  <% end %>
+</h1>
+
 <div class="container">
   <div class="row">
     <div class="col-xs-4">
-    <%# <% if @Job.status == "completed"  %> %>
+    <% if @job.status == "completed"  %>
       <%= simple_form_for [@job, @review] do |f| %>
         <%= f.input :description %>
         <%= f.input :rating, collection: (1..5).to_a, label: "Rate your experience", input_html: {data: {controller: "star-rating"}} %>
