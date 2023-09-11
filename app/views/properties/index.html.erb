@@ -1,9 +1,14 @@
-<h1>Your Properties 🏠</h1>
+<body>
+<h1 classd-flex flex-column justify-content-center w-100 h-100 fw-light text-white m-0">Your Properties 🏠</h1>
+
+
   <div style="width: 100%; height: 400px;"
     data-controller="map"
     data-map-markers-value="<%= @markers.to_json %>"
     data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
   </div>
+
+
 <div class="container">
   <ul class="list-group">
     <% @properties.each do |property| %>
@@ -18,3 +23,6 @@
     <%= link_to 'Add a new Property', new_property_path %>
   </div>
 </div>
+
+
+</body>
