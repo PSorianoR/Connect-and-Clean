@@ -9,27 +9,27 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto">
+      <ul class="navbar-nav me-auto menu__list r-list">
         <% if user_signed_in? %>
           <li class="nav-item">
-              <%= link_to "Jobs", jobs_path, class: "nav-link" %>
+              <%= link_to "Jobs", jobs_path, class: "nav-link menu__link r-link text-underlined" %>
           </li>
           <li class="nav-item" data-navbar-target="myProperties">
-            <%= link_to "Properties", properties_path, class: "nav-link" %>
+            <%= link_to "Properties", properties_path, class: "nav-link menu__link r-link text-underlined" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Inbox", chatrooms_path, class: "nav-link" %>
+            <%= link_to "Inbox", chatrooms_path, class: "nav-link menu__link r-link text-underlined" %>
           </li>
           <li class="nav-item active">
-            <%= link_to "Dashboard", dashboard_path, class: "nav-link" %>
+            <%= link_to "Dashboard", dashboard_path, class: "nav-link menu__link r-link text-underlined" %>
           </li>
           <li class="nav-item dropdown">
             <% if user_signed_in? %>
                 <li class="nav-item dropdown">
                   <% if current_user.photo.attached?  %>
-                    <a class="nav-link" href="#" data-bs-toggle="dropdown"><%= cl_image_tag current_user.photo.key, class: "avatar dropdown-toggle", height: 35, width: 35, crop: :fill %></a>
+                    <a class="nav-link margin-left" href="#" data-bs-toggle="dropdown"><%= cl_image_tag current_user.photo.key, class: "avatar dropdown-toggle", height: 35, width: 35, crop: :fill %></a>
                   <% else %>
-                    <a class="nav-link" href="#" data-bs-toggle="dropdown"><img src="https://images.nightcafe.studio//assets/profile.png?tr=w-640,c-at_max" alt="Image not found" class= "avatar dropdown-toggle"></a>
+                    <a class="nav-link margin-left" href="#" data-bs-toggle="dropdown"><img src="https://images.nightcafe.studio//assets/profile.png?tr=w-640,c-at_max" alt="Image not found" class= "avatar dropdown-toggle"></a>
                   <% end %>
             <% end %>
             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
