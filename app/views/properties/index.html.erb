@@ -1,22 +1,23 @@
 <body>
-<h1 classd-flex flex-column justify-content-center w-100 h-100 fw-light text-white m-0">Your Properties 🏠</h1>
-
-
-<div class="container">
-  <ul class="list-group">
-    <% @properties.each do |property| %>
-      <li class="list-group-item">
-        <%= property.title %>
-        <%= link_to "Check this property", property_path(property), class: "btn btn-primary" %>
-        <%= link_to "Edit", edit_property_path(property), class: 'btn btn-warning' %>
-        <%= link_to "Delete", property_path(property), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-      </li>
-    <% end %>
-  </ul>
-  <div class="button mt-4">
-    <%= link_to 'Add a new Property', new_property_path %>
+  <h1 classd-flex flex-column justify-content-center w-100 h-100 fw-light text-white m-0">Your Properties 🏠</h1>
+    <div style="width: 100%; height: 600px;"
+      data-controller="map"
+      data-map-markers-value="<%= @markers.to_json %>"
+      data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+    </div>
+  <div class="container">
+    <ul class="list-group">
+      <% @properties.each do |property| %>
+        <li class="list-group-item">
+          <%= property.title %>
+          <%= link_to "Check this property", property_path(property), class: "btn btn-primary" %>
+          <%= link_to "Edit", edit_property_path(property), class: 'btn btn-warning' %>
+          <%= link_to "Delete", property_path(property), data: { turbo_method: :delete, turbo_confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        </li>
+      <% end %>
+    </ul>
+    <div class="button mt-4">
+      <%= link_to 'Add a new Property', new_property_path %>
+    </div>
   </div>
-</div>
-
-
 </body>
