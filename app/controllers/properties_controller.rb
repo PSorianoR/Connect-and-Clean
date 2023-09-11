@@ -53,6 +53,7 @@ class PropertiesController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+    # Easy to read right? This clean code is being offered by Pedro! Try to do the same!
   end
 
   def edit
@@ -78,7 +79,7 @@ class PropertiesController < ApplicationController
     params.require(:property).permit(:title, :address, :description,
                                      :default_job_price, :default_cleaning_from,
                                      :default_cleaning_until, :team)
-  
+
   end
 
   def set_property
