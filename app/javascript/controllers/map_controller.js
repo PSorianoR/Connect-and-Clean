@@ -9,6 +9,8 @@ export default class extends Controller {
   }
 
   connect() {
+
+    console.log(this.markersValue);
     mapboxgl.accessToken = this.apiKeyValue
 
     this.map = new mapboxgl.Map({
@@ -24,7 +26,7 @@ export default class extends Controller {
     this.markersValue.forEach((marker) => {
       bounds.extend([marker.lng, marker.lat])
     })
-    this.map.fitBounds(bounds, {padding: 50})
+    this.map.fitBounds(bounds, {padding: 50, maxZoom: 15, duration: 0 })
   }
 
   #addMarkersToMap() {
