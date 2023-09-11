@@ -1,9 +1,22 @@
-<%= simple_form_for(@property) do |f| %>
-  <%= f.input :title %>
-  <%= f.input :description %>
-  <%= f.input :address %>
-  <%= f.input :default_job_price %>
-  <%= f.input :default_cleaning_from %>
-  <%= f.input :default_cleaning_until %>
-  <%= f.submit %>
+<div data-controller="select_user">
+  <%= simple_form_for(@property) do |f| %>
+    <%= f.input :title %>
+    <%= f.input :description %>
+    <%= f.input :address %>
+    <%= f.input :default_job_price %>
+    <%= f.input :default_cleaning_from %>
+    <%= f.input :default_cleaning_until %>
+
+    <%= simple_fields_for :teams do |tf| %>
+    <h2 class="m-2">Your team! 👬</h2>
+    <h4 class="mt-4">Already have a cleaner?</h4>
+      <%# <%= tf.input :user_id, as: :string, input_html: { class: 'select2', data_target: "field" } %>
+      <%= tf.input :user_id, as: :select, collection: User.all.map { |user| [user.first_name, user.id] } %>
+    <h4 class="mt-4">Already have a Manager?</h4>
+      <%= tf.input :user_id, as: :select, collection: User.all.map { |user| [user.first_name, user.id] } %>
+
+    <% end %>
+
+    <%= f.submit %>
 <% end %>
+</div>

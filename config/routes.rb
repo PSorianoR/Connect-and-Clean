@@ -20,7 +20,7 @@ Rails.application.routes.draw do
     get 'accept_cleaner/:id', to: "jobs#accept_cleaner", as: "accept_cleaner"
   end
 
-  resources :users, only: %i[show]
+  resources :users, only: %i[show index]
 
   resources :chatrooms, only: %i[index show create] do
     resources :chatroom_members, only: %i[create]
