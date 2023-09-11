@@ -110,28 +110,28 @@ Property.create!({ title: "property2", user: User.find_by(first_name: "Humberto"
   Job.create!({ property: Property.first, price: 25, status: "completed", user: User.find_by(first_name: "Humberto"), description: "job4property1" })
   Job.create!({ property: Property.first, price: 100, status: "completed", user: User.find_by(first_name: "Humberto"), description: "job5property1" })
 
-   # second property has 2 jobs: 1 applied, 1 completed
-   Job.create!({ property: Property.last, price: 35, status: "applied", user: User.find_by(first_name: "Matt"), description: "job1property2" })
-   Job.create!({ property: Property.last, price: 35, status: "completed", user: User.find_by(first_name: "Humberto"), description: "job2property2" })
+  # second property has 2 jobs: 1 applied, 1 completed
+  Job.create!({ property: Property.last, price: 35, status: "applied", user: User.find_by(first_name: "Matt"), description: "job1property2" })
+  Job.create!({ property: Property.last, price: 35, status: "completed", user: User.find_by(first_name: "Humberto"), description: "job2property2" })
 
-   puts "Seeding jobs applications"
+  puts "Seeding jobs applications"
 
-   # There is a relationship between the job applications and the status of the jobs:
-   # If a job has no applications, it will have the status open. As soon as one cleaner applies for a job
-   # it will have the status applied. Many cleaners can apply for a job. As soon as a cleaner is accepted,
-   # An accepted job can then be completed in the job_applications table by the cleaner who accepted the job.
-   # A cleaner can reject an open job or a job he applied for, it will then no longer be visible in his overview.
+  # There is a relationship between the job applications and the status of the jobs:
+  # If a job has no applications, it will have the status open. As soon as one cleaner applies for a job
+  # it will have the status applied. Many cleaners can apply for a job. As soon as a cleaner is accepted,
+  # An accepted job can then be completed in the job_applications table by the cleaner who accepted the job.
+  # A cleaner can reject an open job or a job he applied for, it will then no longer be visible in his overview.
 
-   first_job_id = Job.first.id
+  first_job_id = Job.first.id
 
-  # job1property1 has no applications and therefore has status open.
+# job1property1 has no applications and therefore has status open.
 
-  # job2property1 has 1 applications by Matt and has status applied. Matt needs to apply because he is not in the cleaning team.
-    JobApplication.create!({ user: User.find_by(first_name: "Matt"), job: Job.find_by(description: "job2property1" ), status: "applied" })
+# job2property1 has 1 applications by Matt and has status applied. Matt needs to apply because he is not in the cleaning team.
+  JobApplication.create!({ user: User.find_by(first_name: "Matt"), job: Job.find_by(description: "job2property1" ), status: "applied" })
 
-  # job3property1 was accepted by Pedro, Ben had applied but is now rejected from the job.
-   JobApplication.create!({ user: User.find_by(first_name: "Pedro"), job: Job.find_by(description: "job3property1" ), status: "accepted" })
-   JobApplication.create!({ user: User.find_by(first_name: "Ben"), job: Job.find_by(description: "job3property1" ), status: "rejected" })
+# job3property1 was accepted by Pedro, Ben had applied but is now rejected from the job.
+  JobApplication.create!({ user: User.find_by(first_name: "Pedro"), job: Job.find_by(description: "job3property1" ), status: "accepted" })
+  JobApplication.create!({ user: User.find_by(first_name: "Ben"), job: Job.find_by(description: "job3property1" ), status: "rejected" })
 
   # job4property1 was completed by Ben
   JobApplication.create!({ user: User.find_by(first_name: "Ben"), job: Job.find_by(description: "job4property1" ), status: "completed" })
