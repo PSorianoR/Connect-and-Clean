@@ -9,15 +9,15 @@
 <div class="container">
   <div class="row">
     <div class="col-xs-4">
-    <% if @job.status == "completed"  %>
-      <%= simple_form_for [@job, @review] do |f| %>
-        <%= f.input :description %>
-        <%= f.input :rating, collection: (1..5).to_a, label: "Rate your experience", input_html: {data: {controller: "star-rating"}} %>
-        <%= f.submit "Send your review" %>
+      <% if @job.status == "completed"  %>
+        <%= simple_form_for [@job, @review] do |f| %>
+          <%= f.input :description %>
+          <%= f.input :rating, collection: (1..5).to_a, label: "Rate your experience", input_html: {data: {controller: "star-rating"}} %>
+          <%= f.submit "Send your review" %>
+        <% end %>
+      <% else %>
+        <p>Sorry, you can't review this job yet.</p>
       <% end %>
-      <%# <% else %> %>
-        <%# <p>Sorry, you can't review this job yet.</p> %>
-    <%# <% end %> %>
     </div>
   </div>
 </div>
