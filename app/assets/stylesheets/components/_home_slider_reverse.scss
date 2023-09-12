@@ -3,8 +3,8 @@ body {
 }
 
 .img-home-slide-reverse {
-  width: 100px;
-  height: 100px;
+  width: 150px;
+  height: 150px;
   animation: scrollReverse 60s linear infinite;
 }
 
@@ -16,8 +16,8 @@ body {
 }
 
 .slider {
-  margin-top: 40px;
-  padding: 5em 1em;
+  margin-top: 2px;
+  padding: 4.5em 1em;
 }
 
 @keyframes scrollReverse {
