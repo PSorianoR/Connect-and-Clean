@@ -1,0 +1,30 @@
+<div class="col-12 col-sm-6 col-md-4 col-lg-3">
+
+  <div class="card rounded-5 m-2" style="width: 18rem;">
+    <%= cl_image_tag user.photo.key, class: "card-img-top img-thumbnail rounded-5" %>
+
+    <div class="card-body">
+      <h5 class="card-title">
+
+        <%= "#{user.first_name} #{user.last_name}" %>
+        <i class="fa-solid fa-broom" style="color: <%= user.cleaner_tier %>"></i>
+
+      </h5>
+
+    </div>
+    <ul class="list-group list-group-flush">
+      <%# How many jobs they've completed %>
+      <li class="list-group-item"> <i class="fa-solid fa-bucket" style="color: #366cc9;;"></i> <%= "#{user.number_of_completed_jobs}" %> </li>
+      <li class="list-group-item"> <i class="fa-solid fa-star" style="color: #ffd700;"></i> <%= user.average_rating %> </li>
+      <li class="list-group-item"> <i class="fa-solid fa-location-dot" style="color: #d71d1d;"></i> <%= user.address %></li>
+    </ul>
+    <div class="card-body">
+      <%# to see profile %>
+      <%= link_to "Profile", user_path(user), class: "card-link btn btn-primary" %>
+      <%= link_to "Accept application" , job_accept_cleaner_path(appl.job, user), class: "card-link btn btn-primary" %>
+
+    </div>
+  </div>
+
+
+</div>
