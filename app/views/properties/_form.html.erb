@@ -17,7 +17,7 @@
       <%= tf.input :manager_id, collection: User.all.map { |user| [user.first_name, user.id] }, input_html: {multiple: true, data: {controller: "tom-select", tom_select_options_value: {tags: true}}} %>
     <% end %>
 
-    <%= f.input :photos, as: :file %>
+    <%= f.input :photo, as: :file %>
 
     <%= f.submit %>
 <% end %>
