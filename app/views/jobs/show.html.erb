@@ -4,6 +4,10 @@
 <% if @job.status = "applied" %>
   <% @job.job_applications.each do |appl| %>
     <% user = User.find(appl.user_id) %>
-    <%= link_to user.first_name, job_accept_cleaner_path(appl.job, user) %>
+    <div class="container">
+      <div class="row">
+        <%= render 'user_card', user: user, appl: appl %>
+      </div>
+    </div>
   <% end %>
 <% end %>
