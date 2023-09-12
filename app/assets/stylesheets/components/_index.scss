@@ -4,6 +4,8 @@
 @import "form_legend_clear";
 @import "navbar";
 @import "hover";
+@import "home_slider";
+@import "home_slider_reverse";
 
 body {
 	background: linear-gradient(-45deg,  #ffffff, #23a6d5, #87ceeb);
@@ -59,6 +61,8 @@ body {
   border-radius: 5px;
   box-shadow: 0 0 15px rgba(0,0,0,0.2);
 }
+
+
 
 
 @import "message";
