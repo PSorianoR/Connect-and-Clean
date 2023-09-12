@@ -19,14 +19,14 @@ export default class extends Controller {
     console.log(this.propertySelectTarget.value);
 
     if (propertyId) {
-      fetch(`/properties/${propertyId}.json`)
+      fetch(`/properties/info/${propertyId}.json`)
         .then(response => response.json())
         .then(data => {
           console.log(data.property)
+          console.log(data);
           console.log(data.cleaners)
           this.updateForm(data);
           this.selectedData = data;
-
           localStorage.setItem("cleaners", JSON.stringify(data.cleaners));
           this.selectCleaners();
       })
