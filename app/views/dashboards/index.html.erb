@@ -1,0 +1,25 @@
+<h1>Dashboard#index</h1>
+<p>Find me in app/views/dashboard/index.html.erb</p>
+
+<%# TEST %>
+<div class="m-4" data-controller="date-filter">
+  <div class="container">
+  <h2>Executed Jobs</h2>
+  <div>
+    <label for="from_date">From:</label>
+    <input type="date" id="from_date" name="from_date" data-date-filter-target="from">
+
+    <label for="until_date">Until:</label>
+    <input type="date" id="until_date" name="until_date" data-date-filter-target="until">
+
+    <button id="filter_button" data-action="click->date-filter#filterJobs">Filter</button>
+  </div>
+  <h3>Total jobs for the period: <%= @jobs.count %></h3>
+  <h3>Total price for the period: <%= @total_price %></h3>
+  <div data-date-filter-target="jobs">
+    <% @jobs.each do |job| %>
+      <p>Cleaning job on <%= job.date_of_job %>: <%= job.price %></p>
+    <% end %>
+  </div>
+  </div>
+</div>
