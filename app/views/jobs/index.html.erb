@@ -11,7 +11,15 @@
 <% if @jobs%>
   <% @jobs.each do |job| %>
     <div class="job-listing d-flex justify-content-between container align-items-center custom-container-height rounded-md">
-      <img src="https://www.thehousedesigners.com/images/uploads/SiteImage-Landing-modern-house-plans-1.webp" class="custom-image-width col-2" />
+    <% if job.property.photo.attached? %>
+    <%= cl_image_tag job.property.photo.key, class:"custom-image-width col-2" %>
+
+    <% else %>
+  <img src="https://www.thehousedesigners.com/images/uploads/SiteImage-Landing-modern-house-plans-1.webp" class="custom-image-width col-2" />
+
+    <% end %>
+
+
       <div class="col-7">
       <div class="job-info">
         <h2><%= job.price %></h2>
@@ -88,7 +96,8 @@
         <% end %>
       <% end %>
       </div>
-      <img src="https://headshotphotos.ca/wp-content/uploads/headshotphotos.ca_.jpg" alt="User Icon" class="user-icon float-right col-1" />
+      <%= cl_image_tag job.user.photo.key, class:"user-icon float-right col-1" %>
+
 
 
     </div>

@@ -1,5 +1,6 @@
 <div class="notification">
-  <img src='https://st2.depositphotos.com/1791505/10117/i/950/depositphotos_101179392-stock-photo-bearded-crazy-person-lunatic.jpg' class="avatar-large" />
+
+ <%= cl_image_tag user.photo.key,  class:"avatar-large" %>
   <div class="notification-content">
     <%= simple_form_for(user, url: chatrooms_path, method: :post) do |form| %>
     <%= form.hidden_field :user_id, value: user.id %>
