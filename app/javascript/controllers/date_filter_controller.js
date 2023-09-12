@@ -39,8 +39,10 @@ export default class extends Controller {
     console.log(data.jobs);
     this.jobsTarget.innerHTML = '';
 
-    data.jobs.foreach(job => {
-      console.log(job);
+    data.jobs.forEach(job => {
+      this.jobsTarget.innerHTML += `
+      <p>Cleaning job on ${job.date_of_job}: ${job.price}</p>
+      `
     })
 
   }
