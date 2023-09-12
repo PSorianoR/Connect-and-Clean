@@ -1,8 +1,12 @@
 <div class="container text-bg-light rounded-4 p-3">
   <div class="row justify-content-evenly">
-    <div class='col-5 m-2 card-category' style="background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(<%= cl_image_path @property.photo.key %>)"
-    >
-      <%# <%= cl_image_tag @property.photo.key %>
+
+    <% if @property.photo.attached? %>
+      <div class='col-5 m-2 card-category' style="background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(<%= cl_image_path @property.photo.key %>)">
+    <% else %>
+      <div class='col-5 m-2 card-category' style="background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(https://images.unsplash.com/photo-1481277542470-605612bd2d61?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1706&q=80) ">
+      <p>You can add a picture</p>
+    <% end %>
     </div>
     <div id="name-address" class="col-5 m-2 d-flex flex-md-column">
       <div id="Name" class='mb-4'>
