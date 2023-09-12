@@ -24,7 +24,7 @@ export default class extends Controller {
     if (localStorage.getItem("mode") !== "manager") {
       localStorage.setItem("mode", "manager")
       this.#setRole()
-      window.location.href = '/dashboard';
+      window.location.href = '/dashboards';
     }else{
       localStorage.setItem("mode", "manager")
       this.#setRole()
@@ -41,7 +41,7 @@ export default class extends Controller {
     if (localStorage.getItem("mode") !== "cleaner") {
       localStorage.setItem("mode", "cleaner")
       this.#setRole()
-      window.location.href = '/dashboard';
+      window.location.href = '/dashboards';
     }else{
       localStorage.setItem("mode", "cleaner")
       this.#setRole()

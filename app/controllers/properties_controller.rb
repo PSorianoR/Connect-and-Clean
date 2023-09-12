@@ -1,5 +1,5 @@
 class PropertiesController < ApplicationController
-  before_action :set_property, only: %i[show edit destroy]
+  before_action :set_property, only: %i[info show edit destroy]
 
   def index
     @properties = current_user.properties
@@ -17,17 +17,28 @@ class PropertiesController < ApplicationController
 
   def show
 
-    @markers = [{
-        lat: @property.latitude,
-        lng: @property.longitude,
-        info_window_html: render_to_string(partial: "info_window", locals: {property: @property})
-      }]
-
     @cleaners = @property.teams.where(profession: "cleaner").map(&:user)
+
+    # Response when html is requested, used for the map on properties show.
     respond_to do |format|
-      format.html # Render the HTML view as usual
+      format.html {
+        @markers = [{
+            lat: @property.latitude,
+            lng: @property.longitude,
+            info_window_html: render_to_string(partial: "info_window", locals: {property: @property})
+          }]
+      }
+    end
+  end
+
+  def info
+    @cleaners = @property.teams.where(profession: "cleaner").map(&:user)
+
+    # JSON response to stimulus controller job_form_controller.js
+    respond_to do |format|
       format.json { render json: { property: @property, cleaners: @cleaners } } # Respond with JSON data
     end
+
   end
 
   def new
@@ -53,6 +64,7 @@ class PropertiesController < ApplicationController
     else
       render :new, status: :unprocessable_entity
     end
+    # Easy to read right? This clean code is being offered by Pedro! Try to do the same!
   end
 
   def edit
@@ -77,8 +89,8 @@ class PropertiesController < ApplicationController
   def property_params
     params.require(:property).permit(:title, :address, :description,
                                      :default_job_price, :default_cleaning_from,
-                                     :default_cleaning_until, :team)
-  
+                                     :default_cleaning_until, :team, :photo)
+
   end
 
   def set_property

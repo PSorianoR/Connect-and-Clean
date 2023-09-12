@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'dashboard/index'
   get 'message/create'
   get 'chatroom_member/create'
   get 'chatroom/index'
@@ -29,9 +30,11 @@ Rails.application.routes.draw do
     end
   end
 
-  get 'dashboard', to: "users#dashboard", as: "dashboard"
+  resources :dashboards, only: %i[index]
+
   post 'mode', to: "users#mode", as: "mode"
   patch 'change_status', to: "jobs#change_status", as: "job_change_status"
+  get 'properties/info/:id', to: "properties#info", as: "property_info"
 
 
   # Defines the root path route ("/")
