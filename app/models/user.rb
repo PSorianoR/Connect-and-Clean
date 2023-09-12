@@ -17,7 +17,28 @@ class User < ApplicationRecord
   # validates :name, :birth_date, :address, presence:true
   has_one_attached :photo
 
+
   def average_rating
     reviews.average(:rating).to_f
+  end
+
+  def number_of_completed_jobs
+    jobs.where(status: "Completed").count
+  end
+
+  def cleaner_tier
+    if number_of_completed_jobs > 10
+      if avarage_rating > 4.5
+        "#3083dc;"
+      elsif avarage_rating > 4
+        "#ffea00;"
+      elsif avarage_rating > 3.5
+        "#8e9aaf;"
+      else
+        "#ef8354;"
+      end
+    else
+      "#ffffff;"
+    end
   end
 end
