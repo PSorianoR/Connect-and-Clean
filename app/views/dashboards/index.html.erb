@@ -17,26 +17,33 @@
   </div>
 
 
-  <%# TEST %>
-  <div class="m-4">
-    <h2>Executed Jobs</h2>
-    <h3 data-date-filter-target="numberJobs">Total jobs for the period: <%= @jobs.count %></h3>
-    <h3 data-date-filter-target="totalPrice"> Total price for the period: <%= @total_price %></h3>
-    <div data-date-filter-target="jobs">
-      <% @jobs.each do |job| %>
-        <p>Cleaning job on <%= job.date_of_job %>: <%= job.price %></p>
-      <% end %>
+  <%# Ben,i dont know but its not working
+  R$ dont appear and the job count continues to appear besides total job of the period %>
+  <div class="container bg-white p-3 rounded">
+    <div class="row border">
+        <div class="col-md-4 text-center border">
+          <h2>Executed Jobs</h2>
+          <div data-date-filter-target="jobs">
+            <% @jobs.each do |job| %>
+              <p>Cleaning job on <%= job.date_of_job %>: <%= job.price %></p>
+            <% end %>
+          </div>
+        </div>
+        <div class="col-md-4 text-center border">
+          <h3 data-date-filter-target="numberJobs">Total jobs for the period:</h3>
+          <p><%= @jobs.count %></p>
+        </div>
+        <div class="col-md-4 text-center border">
+          <h3 data-date-filter-target="totalPrice"> Total price for the period: R$ <%= @total_price %></h3>
+        </div>
     </div>
   </div>
 </div>
 
 
-<div class="row mb-3 text-center">
-      <div class="col-4 themed-grid-col">.col-4</div>
-      <div class="col-4 themed-grid-col">.col-4</div>
-      <div class="col-4 themed-grid-col">.col-4</div>
-    </div>
 
+<%# ben choose between the grid or table, but the grid is less responsive %>
+<%# THE TABLE %>
 <div class=container>
   <div class="table-card">
     <div class="table-responsive small">
@@ -55,7 +62,8 @@
             <tr>
               <td><%= job.property.title %></td>
               <%# dont know how to pick the cleaner name, I´m picking the manager name %>
-              <td><%= job.user.first_name %></td>
+              <td><%= job.job_applications.select {|application| application.status == "completed" }.first.user.first_name %></td>
+
               <td><%= job.date_of_job %></td>
               <td><%= job.price %></td>
             </tr>
@@ -65,4 +73,54 @@
       </table>
     </div>
   </div>
+</div>
+
+<%# the GRID %>
+<%# the grid is less responsive than the table %>
+<div class="container">
+  <% @jobs.each_with_index do |job, index| %>
+    <div class="row">
+     <% if index == 0  %>
+      <div class="col-3 text-center">
+        <h4>Property</h4>
+      </div>
+
+      <div class="col-1 text-center">
+        <h4>Cleaner</h4>
+      </div>
+
+      <div class="col-3 text-center">
+        <h4>Date</h4>
+      </div>
+
+      <div class="col-1 text-center">
+        <h4>Price</h4>
+      </div>
+
+      <div class="col-4 text-center">
+        <h4>Expenses</h4>
+      </div>
+      <% else %>
+        <div class="col-3 text-center">
+          <p><%= job.property.title %></p>
+        </div>
+
+        <div class="col-1 text-center">
+          <p><%= job.job_applications.select {|application| application.status == "completed" }.first.user.first_name %></p>
+        </div>
+
+        <div class="col-3 text-center">
+          <p><%= job.date_of_job %></p>
+        </div>
+
+        <div class="col-1 text-center">
+          <p><%= job.price %></p>
+        </div>
+
+        <div class="col-4 text-center">
+          <p><%= job.price %></p>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 </div>
