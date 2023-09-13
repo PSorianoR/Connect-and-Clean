@@ -22,7 +22,7 @@
 
       <div class="col-7">
       <div class="job-info">
-        <h2><%= job.price %></h2>
+        <h2> R$ <%= job.price.round %></h2>
         <p><%= job.description %></p>
         <% if session[:user_role] == "cleaner" %>
           <div>
