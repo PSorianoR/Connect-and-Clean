@@ -88,8 +88,8 @@ class PropertiesController < ApplicationController
 
   def property_params
     params.require(:property).permit(:title, :address, :description,
-                                     :default_job_price, :default_cleaning_from,
-                                     :default_cleaning_until, :team, :photo)
+      :default_job_price, :default_cleaning_from,
+      :default_cleaning_until, :team, :photo)
 
   end
 
