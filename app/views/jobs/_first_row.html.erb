@@ -1,0 +1,28 @@
+<div class="col-6">
+
+  <div class="card m-3 rounded-5">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <% if @job.property.photo.attached? %>
+          <div class='card-category rounded-start-5' style="background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(<%= cl_image_path @job.property.photo.key %>)">
+        <% else %>
+          <div class='card-category rounded-start-5' style="background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(https://res.cloudinary.com/dgabkyhfa/image/upload/v1694529741/sexs5cxn4dj15cav0qs3.jpg)">
+        <% end %>
+        </div>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h5 class="card-title"><%= @job.property.title.capitalize %></h5>
+          <p class="card-text"> <i class="fa-solid fa-location-dot" style="color: #c92626;"></i> <%= @job.property.address %></p>
+          <p class="card-text"> <i class="fa-regular fa-clock" style="color: #366cc9;"></i> <%= "#{@job.property.default_cleaning_from} to #{@job.property.default_cleaning_until}" %></p>
+          <p class="card-text"><small class="text-body-secondary">Created By: <%= "#{@job.property.user.first_name} #{@job.property.user.last_name}" %></small></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+<div class="col-6">
+  <%# Map goes Here %>
+</div>

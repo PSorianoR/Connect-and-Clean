@@ -14,14 +14,14 @@
     </div>
     <ul class="list-group list-group-flush">
       <%# How many jobs they've completed %>
-      <li class="list-group-item"> <i class="fa-solid fa-bucket" style="color: #366cc9;;"></i> <%= "#{user.number_of_completed_jobs}" %> </li>
+      <li class="list-group-item"> <i class="fa-solid fa-bucket" style="color: #366cc9;"></i> <%= "#{user.number_of_completed_jobs}" %> </li>
       <li class="list-group-item"> <i class="fa-solid fa-star" style="color: #ffd700;"></i> <%= user.average_rating %> </li>
       <li class="list-group-item"> <i class="fa-solid fa-location-dot" style="color: #d71d1d;"></i> <%= user.address %></li>
     </ul>
     <div class="card-body">
       <%# to see profile %>
-      <%= link_to "Profile", user_path(user), class: "card-link btn btn-primary" %>
-      <%= link_to "Accept application" , job_accept_cleaner_path(appl.job, user), class: "card-link btn btn-primary" %>
+      <%= link_to "Profile", user_path(user), class: "card-link btn btn-primary btn-rounded" %>
+      <%= link_to "Accept application" , job_accept_cleaner_path(appl.job, user), class: "card-link btn btn-success btn-rounded" %>
 
     </div>
   </div>

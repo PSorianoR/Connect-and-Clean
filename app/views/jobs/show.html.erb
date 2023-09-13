@@ -1,14 +1,49 @@
-<h1>Jobs#show</h1>
-<p>JOB DETAILS SHOULD COME HERE</p>
-<p>Accept Job applicant</p>
-<div class="container-fluid text-center">
-  <div class="row wrap">
 
-  <% if @job.status = "applied" %>
-    <% @job.job_applications.each do |appl| %>
-      <% user = User.find(appl.user_id) %>
-          <%= render 'user_card', user: user, appl: appl %>
-    <% end %>
-  <% end %>
+<div id='Border'>
+
+
+  <%# Jobs "Nav-Bar" %>
+  <div class="containerfluid m-2">
+    <div class="row d-flex justify-content-between border-bottom border-black border-5">
+      <%= render 'jobs/navbar_job' %>
+    </div>
   </div>
+  <%# Jobs "Nav-Bar" %>
+
+  <%# First-row %>
+  <div class="cotainer m-2">
+    <div class="row">
+      <%= render 'first_row' %>
+    </div>
+  </div>
+  <%# First-row %>
+
+  <%# Second-row %>
+  <div class="container m-2">
+    <div class="row">
+      <%= render 'second_row' %>
+    </div>
+  </div>
+
+
+  <%# Second-row %>
+
 </div>
+
+
+
+
+<%# Application Cards %>
+  <% if @job.status == "applied" %>
+    <div class="container-fluid text-center">
+      <div class="row wrap">
+      <% if @job.status = "applied" %>
+        <% @job.job_applications.each do |appl| %>
+          <% user = User.find(appl.user_id) %>
+              <%= render 'user_card', user: user, appl: appl %>
+        <% end %>
+      <% end %>
+      </div>
+    </div>
+  <% end %>
+<%# Application Cards %>
