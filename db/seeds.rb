@@ -104,15 +104,15 @@ Property.create!({ title: "property2", user: User.find_by(first_name: "Humberto"
   # job_applications table Cleaner is therefore not a column in jobs table.
 
   # first property has 4 jobs: 1 Open, 1 applied, 1 accepted, 1 completed
-  Job.create!({ property: Property.first, price: 25, status: "open", user: User.find_by(first_name: "Humberto"), description: "job1property1" })
-  Job.create!({ property: Property.first, price: 25, status: "applied", user: User.find_by(first_name: "Humberto"), description: "job2property1", post_all: true })
-  Job.create!({ property: Property.first, price: 25, status: "accepted", user: User.find_by(first_name: "Humberto"), description: "job3property1" })
-  Job.create!({ property: Property.first, price: 25, status: "completed", user: User.find_by(first_name: "Humberto"), description: "job4property1" })
-  Job.create!({ property: Property.first, price: 100, status: "completed", user: User.find_by(first_name: "Humberto"), description: "job5property1" })
+  Job.create!({ property: Property.first, price: 25, status: "open", user: User.find_by(first_name: "Humberto"), description: "job1property1", date_of_job: Date.new(2023,9,1) })
+  Job.create!({ property: Property.first, price: 25, status: "applied", user: User.find_by(first_name: "Humberto"), description: "job2property1", post_all: true, date_of_job: Date.new(2023,9,2) })
+  Job.create!({ property: Property.first, price: 25, status: "accepted", user: User.find_by(first_name: "Humberto"), description: "job3property1", date_of_job: Date.new(2023,9,3) })
+  Job.create!({ property: Property.first, price: 25, status: "completed", user: User.find_by(first_name: "Humberto"), description: "job4property1", date_of_job: Date.new(2023,9,4) })
+  Job.create!({ property: Property.first, price: 100, status: "completed", user: User.find_by(first_name: "Humberto"), description: "job5property1", date_of_job: Date.new(2023,9,5) })
 
   # second property has 2 jobs: 1 applied, 1 completed
-  Job.create!({ property: Property.last, price: 35, status: "applied", user: User.find_by(first_name: "Matt"), description: "job1property2" })
-  Job.create!({ property: Property.last, price: 35, status: "completed", user: User.find_by(first_name: "Humberto"), description: "job2property2" })
+  Job.create!({ property: Property.last, price: 35, status: "applied", user: User.find_by(first_name: "Matt"), description: "job1property2", date_of_job: Date.new(2023,9,6) })
+  Job.create!({ property: Property.last, price: 35, status: "completed", user: User.find_by(first_name: "Humberto"), description: "job2property2", date_of_job: Date.new(2023,9,7) })
 
   puts "Seeding jobs applications"
 

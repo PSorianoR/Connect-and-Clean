@@ -1,25 +1,61 @@
-<h1>Dashboard#index</h1>
-<p>Find me in app/views/dashboard/index.html.erb</p>
-
-<%# TEST %>
-<div class="m-4" data-controller="date-filter">
-  <div class="container">
-  <h2>Executed Jobs</h2>
-  <div>
-    <label for="from_date">From:</label>
-    <input type="date" id="from_date" name="from_date" data-date-filter-target="from">
-
-    <label for="until_date">Until:</label>
-    <input type="date" id="until_date" name="until_date" data-date-filter-target="until">
-
-    <button id="filter_button" data-action="click->date-filter#filterJobs">Filter</button>
+<div class="container" data-controller="date-filter">
+  <div class="d-flex justify-content-around align-items-center mt-4">
+    <button class="btn btn-primary" data-action="date-filter#previous">Previous</button>
+    <h1 data-date-filter-target="month"><%= Date.today.strftime("%B") %></h1>
+    <button class="btn btn-primary" data-action="date-filter#next">Next</button>
   </div>
-  <h3>Total jobs for the period: <%= @jobs.count %></h3>
-  <h3>Total price for the period: <%= @total_price %></h3>
-  <div data-date-filter-target="jobs">
-    <% @jobs.each do |job| %>
-      <p>Cleaning job on <%= job.date_of_job %>: <%= job.price %></p>
-    <% end %>
+
+  <div class="d-flex flex-column align-items-center">
+    <small>Filter more specific dates</small>
+    <div>
+      <label for="from_date">From:</label>
+      <input type="date" id="from_date" name="from_date" data-date-filter-target="from">
+      <label for="until_date">Until:</label>
+      <input type="date" id="until_date" name="until_date" data-date-filter-target="until">
+      <button id="filter_button" data-action="click->date-filter#filterJobs">Filter</button>
+    </div>
   </div>
+
+
+  <%# TEST %>
+  <div class="m-4">
+    <h2>Executed Jobs</h2>
+    <h3 data-date-filter-target="numberJobs">Total jobs for the period: <%= @jobs.count %></h3>
+    <h3 data-date-filter-target="totalPrice"> Total price for the period: <%= @total_price %></h3>
+    <div data-date-filter-target="jobs">
+      <% @jobs.each do |job| %>
+        <p>Cleaning job on <%= job.date_of_job %>: <%= job.price %></p>
+      <% end %>
+    </div>
   </div>
 </div>
+
+<%# <div class=container>
+  <div class="table-card">
+    <div class="table-responsive small">
+      <table class="table table-striped table-sm">
+        <thead>
+          <tr>
+            <th scope="col">Property</th>
+            <th scope="col">Cleaner</th>
+            <th scope="col">Date</th>
+            <th scope="col">Price</th>
+            <th scope="col">Expenses</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @jobs.each do |job| %>
+          <tr>
+            <td><%= job.property.title %></td>
+
+
+            <td><%= job.date_of_job %></td>
+            <td><%= job.price %></td>
+          </tr>
+          <% end %>
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div> %>

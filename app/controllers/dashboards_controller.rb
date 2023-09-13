@@ -12,7 +12,7 @@ class DashboardsController < ApplicationController
     from_date = params[:from_date]
     until_date = params[:until_date]
 
-    filtered_jobs = @jobs.where("date_of_job > ? AND date_of_job <= ?", from_date, until_date)
+    filtered_jobs = @jobs.where(date_of_job: from_date..until_date)
 
     respond_to do |format|
       format.html  # Render the HTML view as usual
@@ -26,9 +26,18 @@ class DashboardsController < ApplicationController
   # Get all the jobs when the user is a manager
   def get_completed_jobs(profession)
 
-  completed_jobs = Job.joins(property: :teams)
-                  .where(teams: { user_id: current_user.id, profession: profession })
-                  .where(status: 'completed')
+    # Get all the completed jobs.
+    completed_jobs = Job.joins(property: :teams)
+                    .where(teams: { user_id: current_user.id, profession: profession })
+                    .where(status: 'completed')
+
+    # As a cleaner, you need an addtional filter to make sure you completed the job.
+
+    if profession == "cleaner"
+      completed_jobs = completed_jobs.joins(:job_applications)
+                                  .where(job_applications: { status: "completed", user_id: current_user.id })
+                                  .distinct
+    end
 
     return completed_jobs
   end
