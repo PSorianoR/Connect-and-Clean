@@ -130,6 +130,7 @@ class JobsController < ApplicationController
     @job = Job.find(params[:id])
   end
 
+
   # def reject_applications(job)
   #   other_user_applications = job.job_applications.where.not(user: current_user)
   #   other_user_applications.each do |appl|
