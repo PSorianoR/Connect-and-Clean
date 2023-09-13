@@ -4,10 +4,11 @@
     <div class="row g-0">
       <div class="col-md-4">
         <% if @job.property.photo.attached? %>
-        <img src="<%= cl_image_tag @job.property.photo.key %>" alt="">
+          <div class='card-category rounded-start-5 ' style="background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(<%= cl_image_path @job.property.photo.key %>)">
         <% else %>
-          <img src="https://res.cloudinary.com/dgabkyhfa/image/upload/v1694529741/sexs5cxn4dj15cav0qs3.jpg" class='img-fluid rounded-start' alt="">
+          <div class='card-category rounded-start-5' style="background-image: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,0)), url(https://res.cloudinary.com/dgabkyhfa/image/upload/v1694529741/sexs5cxn4dj15cav0qs3.jpg)">
         <% end %>
+        </div>
       </div>
       <div class="col-md-8">
         <div class="card-body">
