@@ -30,6 +30,13 @@
   </div>
 </div>
 
+
+<div class="row mb-3 text-center">
+      <div class="col-4 themed-grid-col">.col-4</div>
+      <div class="col-4 themed-grid-col">.col-4</div>
+      <div class="col-4 themed-grid-col">.col-4</div>
+    </div>
+
 <div class=container>
   <div class="table-card">
     <div class="table-responsive small">
@@ -47,7 +54,7 @@
             <% @jobs.each do |job| %>
             <tr>
               <td><%= job.property.title %></td>
-              #dont know how to pick the cleaner name, I´m picking the manager name
+              <%# dont know how to pick the cleaner name, I´m picking the manager name %>
               <td><%= job.user.first_name %></td>
               <td><%= job.date_of_job %></td>
               <td><%= job.price %></td>
