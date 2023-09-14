@@ -1,135 +1,27 @@
-<div class="d-flex flex-column justify-content-center align-items-center" style="margin-top: 40px; padding: 10px">
-<h1>Your jobs</h1>
-<p style="margin-bottom: 30px;">jobs home page</p>
-<% if session[:user_role] == "manager" %>
-  <%= link_to "Create Job", new_job_path, class:"btn btn-primary btn-lg btn-block mb-5 w-100 btn-1" %>
-<% end %>
-</div>
-
-<div class="container d-flex flex-column justify-content-center align-items-center" >
-  <ul id="jobList">
-    <% if @jobs%>
-      <% @jobs.each do |job| %>
-        <div class="job-listing d-flex justify-content-between container align-items-center custom-container-height rounded-md">
-          <% if job.property.photo.attached? %>
-            <%= cl_image_tag job.property.photo.key, class:"custom-image-width col-2" %>
-          <% else %>
-            <img src="https://www.thehousedesigners.com/images/uploads/SiteImage-Landing-modern-house-plans-1.webp" class="custom-image-width col-2" />
-          <% end %>
-          <div class="col-7">
-            <div class="job-info">
-              <h2> R$ <%= job.price.round %></h2>
-              <p><%= job.description %></p>
-              <% if session[:user_role] == "cleaner" %>
-                <div>
-                  <%= simple_form_for(job.user, url: chatrooms_path, method: :post) do |form| %>
-                    <%= form.hidden_field :user_id, value: job.user.id %>
-                    <%= form.hidden_field :job_id, value: job.id %>
-                    <%= form.button :submit, job.user.first_name %>
-                  <% end %>
-                </div>
-              <% end %>
-            </div>
-          </div>
-          <div class="date-created col-2">
-            <p class="align-items-center"><%= job.date_of_job %></p>
-            <% if session[:user_role] == "manager" %>
-              <p class="current-status"><%= job.status %></p>
-                <% if job.status == "applied" %>
-                  <%= link_to "Accept Application", job_path(job) %>
-                <% elsif job.status == "completed" %>
-                <% if cleaner_review(job).nil? %>
-                  <p class="current-status">completed</p>
-                  <%= link_to "review job", new_job_review_path(job) %>
-                <% else %>
-                  <p class="current-status">reviewed</p>
-                    <% if manager_review(job).nil? %>
-                    <% else %>
-                      <%= link_to "see cleaner review", job_review_path(job, manager_review(job))%>
-                    <% end %>
-                <% end %>
-              <% end %>
-              <% else %>
-              <% if job.status == "open" %>
-                <p class="current-status"><%= job.status %></p>
-                <%= form_tag job_change_status_path(job), method: :patch, style: "display: inline;" do %>
-                  <% if job.property.teams.find_by(user: current_user, profession: "cleaner") %>
-
-                    <%= submit_tag "Accept", class: "btn btn-link" %>
-                  <% else %>
-                    <%= submit_tag "Apply", class: "btn btn-link" %>
-                  <% end %>
-                <% end %>
-              <% elsif job.status == "applied" && job.job_applications.find_by(user: current_user).nil? %>
-                <p class="current-status"><%= "open" %></p>
-                <%= form_tag job_change_status_path(job), method: :patch, style: "display: inline;" do %>
-                  <% if job.property.teams.find_by(user: current_user, profession: "cleaner") %>
-                    <%= submit_tag "Accept", class: "btn btn-link" %>
-                  <% else %>
-                    <%= submit_tag "Apply", class: "btn btn-link" %>
-                  <% end %>
-                <% end %>
-              <% elsif job.job_applications.find_by(user: current_user, status: "applied")%>
-                <p class="current-status"><%= "applied" %></p>
-                <p>Waiting job application to be accepted.</p>
-              <% elsif job.job_applications.find_by(user: current_user, status: "accepted") %>
-                <% status = job.job_applications.find_by(user: current_user).status %>
-                <p class="current-status"><%= status %></p>
-                <%= form_tag job_change_status_path(job), method: :patch, style: "display: inline;" do %>
-                  <%= submit_tag "complete", class: "btn btn-link" %>
-                <% end %>
-              <% elsif job.job_applications.find_by(user: current_user, status: "completed") %>
-                <% if manager_review(job).nil? %>
-                  <p class="current-status">completed</p>
-                  <%= link_to "review job", new_job_review_path(job) %>
-                <% else %>
-                  <p class="current-status">reviewed</p>
-                    <% if cleaner_review(job).nil? %>
-                    <% else %>
-                      <%= link_to "see manager review", job_review_path(job, cleaner_review(job))%>
-                    <% end %>
-                <% end %>
-              <% end %>
-            <% end %>
-          </div>
-            <%= cl_image_tag job.user.photo.key, class:"user-icon float-right col-1" %>
-
-<%# This code below is for implementing the photos in manager mode. If job open, vacant image. If job applied, first cleaner
-image applied is showing. If it´s accepted or completed, the image of the cleaner accepted is gonna show. %>
-<!--
-             <% if job.status == "completed" %>
-              <% selected_user = job.job_applications.select {|application| application.status == "completed" }.first.user %>
-              <%= cl_image_tag selected_user.photo.key, class: "user-icon float-right col-1" %>
-            <% elsif job.status == "accepted" %>
-              <% selected_user = job.job_applications.select {|application| application.status == "accepted" }.first.user %>
-              <%= cl_image_tag selected_user.photo.key, class: "user-icon float-right col-1" %>
-            <% elsif job.status == "applied" %>
-              <% first_cleaner_application = job.job_applications.find_by(status: "applied") %>
-              <%= cl_image_tag first_cleaner_application.user.photo.key, class: "user-icon float-right col-1" %>
-            <% else %>
-              <img src="https://res.cloudinary.com/dgabkyhfa/image/upload/v1694625752/vacancy_pdufgm.jpg" class= "user-icon float-right col-1">
-            <% end %>
--->
-        </div>
+<div data-controller="filter-jobs">
+  <div class="d-flex flex-column justify-content-center align-items-center" style="margin-top: 40px; padding: 10px">
+    <h1>Your jobs</h1>
+    <p style="margin-bottom: 30px;">jobs home page</p>
+  </div>
+  <div class="container">
+    <div class="d-flex justify-content-around">
+      <button data-action="filter-jobs#filter" data-filter="open">Open</button>
+      <button data-action="filter-jobs#filter" data-filter="applied">Applied</button>
+      <button data-action="filter-jobs#filter" data-filter="accepted">Accepted</button>
+      <button data-action="filter-jobs#filter" data-filter="completed">Completed</button>
+    </div>
+    <div class="text-center mt-3">
+      <% if session[:user_role] == "manager" %>
+        <%= link_to "Create Job", new_job_path, class:"btn btn-primary btn-lg btn-block mb-5 w-100 btn-1" %>
       <% end %>
-    <% end %>
-  </ul>
+    </div>
+  </div>
+
+  <div class="container d-flex flex-column justify-content-center align-items-center" >
+    <ul id="jobList">
+      <div data-filter-jobs-target="jobsOfStatus">
+        <%= render partial: 'job_list', locals: { jobs: @jobs } %>
+      </div>
+    </ul>
+  </div>
 </div>
-
-<!--  <div class="job-listing d-flex justify-content-between container align-items-center custom-container-height rounded-md">
-  <img src="https://www.thehousedesigners.com/images/uploads/SiteImage-Landing-modern-house-plans-1.webp" class="custom-image-width col-2" />
-  <div class="col-7">
-  <div class="job-info">
-    <h2>Name of Job</h2>
-    <p>Job description with <strong>relevant info</strong> only.</p>
-  </div>
-  </div>
-
-  <div class="date-created col-2">
-  <p class="align-items-center">September 15, 2023</p>
-  <p class="current-status">Status</p>
-  </div>
-  <img src="https://headshotphotos.ca/wp-content/uploads/headshotphotos.ca_.jpg" alt="User Icon" class="user-icon float-right col-1" />
-
-
-</div> -->
