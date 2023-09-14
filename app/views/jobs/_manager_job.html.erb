@@ -1,0 +1,55 @@
+<%# Job card for the manager %>
+<div class="col-7">
+  <div class="job-info">
+    <h2> R$ <%= job.price.round %></h2>
+    <p><%= job.description %></p>
+
+    <%# Find the cleaner that applied (first one), selected, or completed the job. %>
+    <% selected_job = job.job_applications.where(status: ["applied","accepted", "completed"]).first %>
+    <% if selected_job %>
+      <div>
+        <% cleaner = selected_job.user %>
+
+        <%# Link to chat with the cleaner - Maybe better on show page%>
+        <%= simple_form_for(cleaner, url: chatrooms_path, method: :post) do |form| %>
+          <%= form.hidden_field :user_id, value: cleaner.id %>
+          <%= form.hidden_field :job_id, value: job.id %>
+          <%= form.button :submit, cleaner.first_name %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class="date-created col-2">
+  <p class="align-items-center"><%= job.date_of_job %></p>
+  <% if job.status != "completed" %>
+    <p class="current-status"><%= job.status %></p>
+  <% end %>
+
+    <%# You can accept the application for one of the cleaners that applied. %>
+    <% if job.status == "applied" %>
+      <%= link_to "Accept Application", job_path(job) %>
+
+    <%# You can review the job once it has been completed %>
+    <% elsif job.status == "completed" %>
+      <% if manager_review(job).nil? %>
+        <p class="current-status">completed</p>
+        <%= link_to "review job", new_job_review_path(job) %>
+
+      <%# You cqn only see the review once you wrote a review about the cleaner %>
+      <% else %>
+        <p class="current-status">reviewed</p>
+        <% unless cleaner_review(job).nil? %>
+          <%= link_to "see cleaner review", job_review_path(job, manager_review(job))%>
+        <% end %>
+      <% end %>
+    <% end %>
+</div>
+
+<%# Select Picture of the cleaner that applied, accepted, or completed the job. %>
+<% if cleaner %>
+  <%= cl_image_tag cleaner.photo.key, class:"user-icon float-right col-1" %>
+<% else %>
+  <img src="https://res.cloudinary.com/dgabkyhfa/image/upload/v1694625752/vacancy_pdufgm.jpg" class= "user-icon float-right col-1">
+<% end %>

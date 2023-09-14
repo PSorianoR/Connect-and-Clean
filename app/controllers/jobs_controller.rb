@@ -48,6 +48,7 @@ class JobsController < ApplicationController
     @jobs += team.property.jobs
     end
 
+    @jobs = @jobs.sort_by(&:date_of_job)
   end
 
   def filter_application_status
