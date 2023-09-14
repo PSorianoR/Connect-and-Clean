@@ -1,7 +1,11 @@
 <div data-controller="filter-jobs">
   <div class="d-flex flex-column justify-content-center align-items-center" style="margin-top: 40px; padding: 10px">
-    <h1>Your jobs</h1>
-    <p style="margin-bottom: 30px;">jobs home page</p>
+    <h1>Jobs</h1>
+  </div>
+  <div class="text-center mt-3">
+    <% if session[:user_role] == "manager" %>
+      <%= link_to "Create Job", new_job_path, class:"btn-with-black-border rounded mt-4 btn btn-secondary btn-lg btn-block mb-5 w-100 btn-1" %>
+    <% end %>
   </div>
   <div class="container">
     <div class="d-flex justify-content-around">
@@ -21,9 +25,4 @@
   </div>
 </div>
 
- <div class="text-center mt-3">
-      <% if session[:user_role] == "manager" %>
-        <%= link_to "Create Job", new_job_path, class:"btn-with-black-border rounded mt-4 btn btn-primary btn-lg btn-block mb-5 w-100 btn-1" %>
-      <% end %>
-    </div>
-  </div>
+</div>

@@ -1,4 +1,4 @@
-<div class="col-6"></div>
+<div class="col-8">
   <div class="m-3 card w-75 mb-3 rounded-5">
     <div class="card-body">
       <div class="border-bottom border-black">
@@ -13,7 +13,11 @@
         <p class="card-text text-secondary">Date: </p>
         <p class='card-text'> <%= " #{@job.date_of_job.month}/#{@job.date_of_job.day}/#{@job.date_of_job.year}" %></p>
       </div>
-      <%= link_to "Chat With", class: 'btn btn-primary' %>
+      <% if session[:user_role] == "manager" %>
+        <%= render 'chat_cleaner_button', job: @job %>
+      <% else %>
+        <%= render 'chat_manager_button', job: @job %>
+      <% end %>
     </div>
   </div>
 </div>

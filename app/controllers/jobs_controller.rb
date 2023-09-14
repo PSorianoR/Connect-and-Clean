@@ -17,6 +17,17 @@ class JobsController < ApplicationController
   end
 
   def show
+    @property  = @job.property
+    respond_to do |format|
+      format.html {
+        @markers = [{
+            lat: @property.latitude,
+            lng: @property.longitude,
+            info_window_html: render_to_string(partial: "info_window_jobs", locals: {property: @property})
+          }]
+      }
+    end
+
   end
 
   def new

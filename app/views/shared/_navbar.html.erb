@@ -3,11 +3,19 @@
     <%= link_to root_path, class: "navbar-brand" do %>
       <%= image_tag "logonavbar.png", alt: "Le Wagon", width: 200 %>
     <% end %>
+<!-- This is just to indicate if are on manager or cleaner role on the navbar -->
+  <% if user_signed_in? %>
+    <li data-navbar-target="managerText" class="text-center custom-mode-rectangle">
+    <strong>Manager Mode</strong>
+      </li>
+    <li data-navbar-target="cleanerText" class="text-center custom-mode-rectangle">
+      <strong>Cleaner Mode</strong>
+    </li>
+  <% end %>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto menu__list r-list">
         <% if user_signed_in? %>
@@ -21,7 +29,7 @@
             <%= link_to "Inbox", chatrooms_path, class: "nav-link menu__link r-link text-underlined" %>
           </li>
           <li class="nav-item active">
-            <%= link_to "Dashboard", dashboards_path, class: "nav-link menu__link r-link text-underlined" %>
+            <%= link_to "Dashboard", dashboards_path, class: "nav-link menu__link r-link text-underlined px-5" %>
           </li>
           <li class="nav-item dropdown">
             <% if user_signed_in? %>
