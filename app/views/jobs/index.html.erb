@@ -5,19 +5,14 @@
   </div>
   <div class="container">
     <div class="d-flex justify-content-around">
-      <button data-action="filter-jobs#filter" data-filter="open">Open</button>
-      <button data-action="filter-jobs#filter" data-filter="applied">Applied</button>
-      <button data-action="filter-jobs#filter" data-filter="accepted">Accepted</button>
-      <button data-action="filter-jobs#filter" data-filter="completed">Completed</button>
+      <button class="btn-1 btn btn-primary btn-with-black-border rounded" chat-text-filtersstyle="border-color: black; border-width: 1px;" data-action="filter-jobs#filter" data-filter="open">Open</button>
+      <button class="btn-1 btn btn-primary btn-with-black-border rounded custom-button" style="border-color: black; border-width: 1px;" data-action="filter-jobs#filter" data-filter="applied">Applied</button>
+      <button class="btn-1 btn btn-primary btn-with-black-border rounded custom-button" style="border-color: black; border-width: 1px;" data-action="filter-jobs#filter" data-filter="accepted">Accepted</button>
+      <button class="btn-1 btn btn-primary btn-with-black-border rounded custom-button" style="border-color: black; border-width: 1px;" data-action="filter-jobs#filter" data-filter="completed">Completed</button>
     </div>
-    <div class="text-center mt-3">
-      <% if session[:user_role] == "manager" %>
-        <%= link_to "Create Job", new_job_path, class:"btn btn-primary btn-lg btn-block mb-5 w-100 btn-1" %>
-      <% end %>
-    </div>
-  </div>
 
-  <div class="container d-flex flex-column justify-content-center align-items-center" >
+
+  <div class="mt-4 container d-flex flex-column justify-content-center align-items-center" >
     <ul id="jobList">
       <div data-filter-jobs-target="jobsOfStatus">
         <%= render partial: 'job_list', locals: { jobs: @jobs } %>
@@ -25,3 +20,10 @@
     </ul>
   </div>
 </div>
+
+ <div class="text-center mt-3">
+      <% if session[:user_role] == "manager" %>
+        <%= link_to "Create Job", new_job_path, class:"btn-with-black-border rounded mt-4 btn btn-primary btn-lg btn-block mb-5 w-100 btn-1" %>
+      <% end %>
+    </div>
+  </div>
