@@ -1,6 +1,6 @@
 <% if jobs%>
   <% jobs.each do |job| %>
-    <div class="job-listing d-flex justify-content-between container align-items-center custom-container-height rounded-md">
+    <div class="job-listing custom-container d-flex justify-content-between container align-items-center custom-container-height rounded-md card-product custom-image-width btn border-radius-containers mt-2 mb-3">
       <% if job.property.photo.attached? %>
         <%= cl_image_tag job.property.photo.key, class:"custom-image-width col-2" %>
       <% else %>
