@@ -120,6 +120,53 @@ class JobsController < ApplicationController
     redirect_to jobs_path
   end
 
+  def open
+    index
+
+    if session[:user_role] == "manager"
+      @jobs = @jobs.select { |job| job.status == "open"}
+      render partial: 'job_list', locals: { jobs: @jobs }
+    else
+      @jobs = @jobs.select do |job|
+        notApplied = job.job_applications.none? do |appl|
+          appl.user == current_user
+        end
+        notApplied
+      end
+      render partial: 'job_list', locals: { jobs: @jobs }
+    end
+  end
+
+  def applied
+    index
+
+    if session[:user_role] == "manager"
+      @jobs = @jobs.select { |job| job.status == "applied"}
+      render partial: 'job_list', locals: { jobs: @jobs }
+    else
+      @jobs = @jobs.select do |job|
+        hasApplied = job.job_applications.any? do |appl|
+          appl.user == current_user && appl.status == "applied"
+        end
+        hasApplied
+      end
+
+      render partial: 'job_list', locals: { jobs: @jobs }
+    end
+  end
+
+  def accepted
+    index
+    @jobs = @jobs.select { |job| job.status == "accepted"}
+    render partial: 'job_list', locals: { jobs: @jobs }
+  end
+
+  def completed
+    index
+    @jobs = @jobs.select { |job| job.status == "completed"}
+    render partial: 'job_list', locals: { jobs: @jobs }
+  end
+
   private
 
   def job_params

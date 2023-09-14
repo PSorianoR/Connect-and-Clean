@@ -15,10 +15,17 @@ Rails.application.routes.draw do
     resources :teams, only: %i[create destroy]
   end
 
-  resources :jobs, only: %i[index show new create edit update] do
+  resources :jobs, only: %i[index new create edit update] do
+    collection do
+      get 'open', to: "jobs#open"
+      get 'applied', to: "jobs#applied"
+      get 'accepted', to: "jobs#accepted"
+      get 'completed', to: "jobs#completed"
+    end
     resources :job_applications, only: %i[create update]
     resources :reviews, only: %i[create new show]
     get 'accept_cleaner/:id', to: "jobs#accept_cleaner", as: "accept_cleaner"
+    get 'show', to: "jobs#show", as: "job"
   end
 
   resources :users, only: %i[show index]

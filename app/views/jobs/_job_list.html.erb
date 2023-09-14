@@ -1,0 +1,88 @@
+<% if jobs%>
+  <% jobs.each do |job| %>
+    <div class="job-listing d-flex justify-content-between container align-items-center custom-container-height rounded-md">
+      <% if job.property.photo.attached? %>
+        <%= cl_image_tag job.property.photo.key, class:"custom-image-width col-2" %>
+      <% else %>
+        <img src="https://www.thehousedesigners.com/images/uploads/SiteImage-Landing-modern-house-plans-1.webp" class="custom-image-width col-2" />
+      <% end %>
+      <div class="col-7">
+        <div class="job-info">
+          <h2> R$ <%= job.price.round %></h2>
+          <p><%= job.description %></p>
+          <% if session[:user_role] == "cleaner" %>
+            <div>
+              <%= simple_form_for(job.user, url: chatrooms_path, method: :post) do |form| %>
+                <%= form.hidden_field :user_id, value: job.user.id %>
+                <%= form.hidden_field :job_id, value: job.id %>
+                <%= form.button :submit, job.user.first_name %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="date-created col-2">
+        <p class="align-items-center"><%= job.date_of_job %></p>
+        <% if session[:user_role] == "manager" %>
+          <p class="current-status"><%= job.status %></p>
+            <% if job.status == "applied" %>
+              <%= link_to "Accept Application", job_path(job) %>
+            <% elsif job.status == "completed" %>
+            <% if cleaner_review(job).nil? %>
+              <p class="current-status">completed</p>
+              <%= link_to "review job", new_job_review_path(job) %>
+            <% else %>
+              <p class="current-status">reviewed</p>
+                <% if manager_review(job).nil? %>
+                <% else %>
+                  <%= link_to "see cleaner review", job_review_path(job, manager_review(job))%>
+                <% end %>
+            <% end %>
+          <% end %>
+          <% else %>
+          <% if job.status == "open" %>
+            <p class="current-status"><%= job.status %></p>
+            <%= form_tag job_change_status_path(job), method: :patch, style: "display: inline;" do %>
+              <% if job.property.teams.find_by(user: current_user, profession: "cleaner") %>
+
+                <%= submit_tag "Accept", class: "btn btn-link" %>
+              <% else %>
+                <%= submit_tag "Apply", class: "btn btn-link" %>
+              <% end %>
+            <% end %>
+          <% elsif job.status == "applied" && job.job_applications.find_by(user: current_user).nil? %>
+            <p class="current-status"><%= "open" %></p>
+            <%= form_tag job_change_status_path(job), method: :patch, style: "display: inline;" do %>
+              <% if job.property.teams.find_by(user: current_user, profession: "cleaner") %>
+                <%= submit_tag "Accept", class: "btn btn-link" %>
+              <% else %>
+                <%= submit_tag "Apply", class: "btn btn-link" %>
+              <% end %>
+            <% end %>
+          <% elsif job.job_applications.find_by(user: current_user, status: "applied")%>
+            <p class="current-status"><%= "applied" %></p>
+            <p>Waiting job application to be accepted.</p>
+          <% elsif job.job_applications.find_by(user: current_user, status: "accepted") %>
+            <% status = job.job_applications.find_by(user: current_user).status %>
+            <p class="current-status"><%= status %></p>
+            <%= form_tag job_change_status_path(job), method: :patch, style: "display: inline;" do %>
+              <%= submit_tag "complete", class: "btn btn-link" %>
+            <% end %>
+          <% elsif job.job_applications.find_by(user: current_user, status: "completed") %>
+            <% if manager_review(job).nil? %>
+              <p class="current-status">completed</p>
+              <%= link_to "review job", new_job_review_path(job) %>
+            <% else %>
+              <p class="current-status">reviewed</p>
+                <% if cleaner_review(job).nil? %>
+                <% else %>
+                  <%= link_to "see manager review", job_review_path(job, cleaner_review(job))%>
+                <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+        <%= cl_image_tag job.user.photo.key, class:"user-icon float-right col-1" %>
+    </div>
+      <% end %>
+<% end %>
