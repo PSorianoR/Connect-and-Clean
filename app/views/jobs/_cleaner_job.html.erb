@@ -1,8 +1,8 @@
 <%# Job card for the cleaner %>
 <div class="col-7">
   <div class="job-info">
-    <h2> R$ <%= job.price.round %></h2>
-    <p><%= job.description %></p>
+    <h2> <%= job.property.title %> </h2>
+    <p>  R$ <%= job.price.round %></p>
 
     <%# Get link to chat with manager %>
     <%= simple_form_for(job.user, url: chatrooms_path, method: :post) do |form| %>
