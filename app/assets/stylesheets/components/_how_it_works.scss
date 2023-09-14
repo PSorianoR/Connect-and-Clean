@@ -48,7 +48,7 @@ main {
 }
 //odd number borders
 .explainer:nth-child(odd) {
-  border-right: 3px solid;
+  border-right: 5px solid;
   padding-left: 0;
 
   &:before {
@@ -58,7 +58,7 @@ main {
 }
 //even number borders
 .explainer:nth-child(even) {
-  border-left: 3px solid;
+  border-left: 5px solid;
   padding-right: 0;
 
   &:before {

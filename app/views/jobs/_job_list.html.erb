@@ -1,12 +1,13 @@
 <% if jobs %>
   <% jobs.each do |job| %>
-    <%= link_to job_path(job) do %>
-      <div class="job-listing custom-container d-flex justify-content-between container align-items-center custom-container-height rounded-md card-product custom-image-width btn border-radius-containers mt-2 mb-3">
-        <% if job.property.photo.attached? %>
-          <%= cl_image_tag job.property.photo.key, class: "custom-image-width col-2" %>
-        <% else %>
-          <img src="https://www.thehousedesigners.com/images/uploads/SiteImage-Landing-modern-house-plans-1.webp" class="custom-image-width col-2" />
-        <% end %>
+
+    <div class="job-listing custom-container d-flex justify-content-between container align-items-center custom-container-height rounded-md card-product custom-image-width btn border-radius-containers mt-2 mb-3">
+      <% if job.property.photo.attached? %>
+        <%= cl_image_tag job.property.photo.key, class:"custom-image-width col-2 rounded-left", style:"border-top-left-radius: 10px; border-bottom-left-radius: 10px;" %>
+      <% else %>
+        <img src="https://www.thehousedesigners.com/images/uploads/SiteImage-Landing-modern-house-plans-1.webp" class="custom-image-width col-2 rounded-left" style="border-top-left-radius: 10px; border-bottom-left-radius: 10px;" />
+      <% end %>
+
 
         <% if session[:user_role] == "manager" %>
           <%= render partial: 'manager_job', locals: { job: job } %>
