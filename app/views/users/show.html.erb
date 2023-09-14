@@ -11,13 +11,13 @@
             <div class="col-md-8">
               <!-- Profile Information -->
               <h1><%= @user.first_name %></h1>
-              <p>Years Hosting: 3 Years</p>
+              <p>Years on C&C: 3 Years</p>
               <p>Email: <%= @user.email %></p>
               <p><strong>Rating:</strong> <%= render partial: 'users/star_rating', locals: { user: @user } %></p>
               <!-- Reviews Section -->
               <div class="reviews">
 
-                <h2><%= @user.first_name %>´s Reviews as a cleaner</h2>
+                <h2><%= @user.first_name %>'s Reviews as a cleaner</h2>
                 <% @cleaner_reviews.each do |review| %>
                   <div class="review">
                   <h3><strong>Reviewer:</strong> <%= review.user.first_name %></h3>
@@ -36,7 +36,7 @@
               <p>Location: <%= @user.address %></p>
               <!-- About Profile Section -->
               <h2>About Me</h2>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vitae justo eu elit bibendum consectetur.</p>
+              <p>Learning to code from scratch.</p>
               <!-- Edit Profile Button -->
               <% if current_user == @user %>
                 <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-primary" %>

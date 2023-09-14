@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="navbar"
 export default class extends Controller {
 
-  static targets = ["myProperties","cleanerLinkText", "managerLinkText"]
+  static targets = ["myProperties","cleanerLinkText", "managerLinkText", "cleanerText", "managerText"]
 
   connect() {
 
@@ -18,6 +18,8 @@ export default class extends Controller {
     this.myPropertiesTarget.classList.remove("d-none")
     this.cleanerLinkTextTarget.classList.add("d-none")
     this.managerLinkTextTarget.classList.remove("d-none")
+    this.cleanerTextTarget.classList.add("d-none")
+    this.managerTextTarget.classList.remove("d-none")
 
     // Only if the page is not refreshed, but the action is invoked by accessing through data-action
     // Redirect to jobs page
@@ -35,6 +37,8 @@ export default class extends Controller {
     this.myPropertiesTarget.classList.add("d-none")
     this.cleanerLinkTextTarget.classList.remove("d-none")
     this.managerLinkTextTarget.classList.add("d-none")
+    this.cleanerTextTarget.classList.remove("d-none")
+    this.managerTextTarget.classList.add("d-none")
 
     // Only if the page is not refreshed, but the action is invoked by accessing through data-action
     // Redirect to jobs page
