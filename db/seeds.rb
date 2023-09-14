@@ -19,11 +19,16 @@ Review.destroy_all
 Chatroom.destroy_all
 
 array_of_users = []
-emails = ["humberto@lewagon.com", "matt@lewagon.com", "ben@lewagon.com", "pedro@lewagon.com" ]
-first_names = ["Humberto", "Matt", "Ben", "Pedro"]
-last_names = ["Pedra", "Mcgoovern", "Van Dam", "Soriano"]
+emails = ["humberto@lewagon.com", "matt@lewagon.com", "ben@lewagon.com", "pedro@lewagon.com",
+"alicja@lewagon.com" ]
+first_names = ["Humberto", "Matt", "Ben", "Pedro", "Alicja"]
+last_names = ["Pedra", "Mcgoovern", "Van Dam", "Soriano", "Surzyn"]
+address = ["Rua Mariz e Barros, Tijuca, Rio De Janeiro, Brazil", "4523  Cedar Lane, Boston, Massachusetts, USA", "Carnotstraat 152, 2060 Antwerpen, Belgium", "1840  Eglinton Avenue, Toronto, Ontario, Canada",
+"Jardines Del Country, Mascarones Street, Guadalajara, Mexico"]
 
-user_photos = ["https://ca.slack-edge.com/T02NE0241-U05H2NBRFFY-2422604e0f19-512", "https://ca.slack-edge.com/T02NE0241-U05HJTYFZHP-e8affc977624-512","https://ca.slack-edge.com/T02NE0241-U05GUFPNAF9-29d236e53e03-512", "https://ca.slack-edge.com/T02NE0241-U05GAH9GN5D-d73433a0850a-512"]
+user_photos = ["https://ca.slack-edge.com/T02NE0241-U05H2NBRFFY-2422604e0f19-512", "https://ca.slack-edge.com/T02NE0241-U05HJTYFZHP-e8affc977624-512","https://ca.slack-edge.com/T02NE0241-U05GUFPNAF9-29d236e53e03-512", "https://ca.slack-edge.com/T02NE0241-U05GAH9GN5D-d73433a0850a-512",
+"https://ca.slack-edge.com/T02NE0241-U05FVLK1859-a09f85bddaf5-512"]
+
 
 puts "Starting to seed..."
 
@@ -35,7 +40,7 @@ emails.each_with_index do |email, index|
   puts "seeding user n. #{index + 1}"
   user = User.new(email: email, first_name: first_names[index],
     last_name: last_names[index], password: '123456',
-    address: Faker::Address.street_address)
+    address: address[index])
 
     file = URI.open(user_photos[index])
     user.photo.attach(io: file, filename: "nes.png", content_type: "image/png")
@@ -50,7 +55,8 @@ roles = {
   "humberto@lewagon.com": ["manager"],
   "matt@lewagon.com": ["cleaner", "manager"],
   "pedro@lewagon.com": ["cleaner", "manager"],
-  "ben@lewagon.com": ["cleaner"]
+  "ben@lewagon.com": ["cleaner"],
+  "alicja@lewagon.com": ["cleaner", "manager"]
 }
 
 # Iterate over the roles hash and create roles for users
@@ -68,11 +74,17 @@ end
 
 puts "Seeding properties..."
 
-Property.create!({ title: "property1", user: User.find_by(first_name: "Humberto"),
-  address: "Rua Republica do Peru 326, Copacabana, Rio De Janeiro, Brazil", default_job_price: 25, default_cleaning_from: "11:00", default_cleaning_until: "14:00"})
+Property.create!({ title: "Casa Serrana do Humberto", user: User.find_by(first_name: "Humberto"),
+  address: "Alameda Arnaldo Guinle, 10, Teresopolis, Brazil", default_job_price: 25, default_cleaning_from: "11:00", default_cleaning_until: "14:00"})
 
-Property.create!({ title: "property2", user: User.find_by(first_name: "Humberto"),
-  address: "Carnotstraat 152, 2060 Antwerpen, Belgium", default_job_price: 35, default_cleaning_from: "10:00", default_cleaning_until: "12:00"})
+Property.create!({ title: "Alicja's Crib on Rio", user: User.find_by(first_name: "Alicja"),
+address: "Voluntarios da Patria 90, Botafogo, Rio de Janeiro, Brazil", default_job_price: 50, default_cleaning_from: "09:00", default_cleaning_until: "18:00"})
+
+Property.create!({ title: "Casa Praiana do Humberto", user: User.find_by(first_name: "Humberto"),
+  address: "Rua das Pedras 10, Buzios, Rio de Janeiro, Brazil", default_job_price: 35, default_cleaning_from: "10:00", default_cleaning_until: "12:00"}
+  )
+
+
 
   puts "Seeding teams..."
 
@@ -82,10 +94,14 @@ Property.create!({ title: "property2", user: User.find_by(first_name: "Humberto"
     Team.create!({ user: User.find_by(first_name: "Humberto"), property: Property.first, profession: "manager"})
 
 
+    Team.create!({ user: User.find_by(first_name: "Alicja"), property: Property.find_by(title: "Alicja's Crib on Rio"), profession: "manager"})
+
     # Second property has three managers:
   Team.create!({ user: User.find_by(first_name: "Humberto"), property: Property.last, profession: "manager"})
   Team.create!({ user: User.find_by(first_name: "Matt"), property: Property.last, profession: "manager"})
   Team.create!({ user: User.find_by(first_name: "Pedro"), property: Property.last, profession: "manager" } )
+
+
 
 
   # Creating cleaners for a property
@@ -96,7 +112,7 @@ Property.create!({ title: "property2", user: User.find_by(first_name: "Humberto"
 
   # Second property has one cleaner
   Team.create!({ user: User.find_by(first_name: "Matt"), property: Property.last, profession: "cleaner" })
-
+  Team.create!({ user: User.find_by(first_name: "Pedro"), property: Property.last, profession: "cleaner" })
 
   puts "Seeding jobs..."
   # The user of a job is the person who created the job.
