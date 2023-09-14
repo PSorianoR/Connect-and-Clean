@@ -47,10 +47,10 @@ class JobsController < ApplicationController
     teams.each do |team|
     @jobs += team.property.jobs
     end
-    unless @jobs.nil?
-      @jobs.sort_by { |job| job.date_of_job.nil? ? Date.new(9999,12,31) : job.date_of_job }
+      unless @jobs.nil?
+        @jobs.sort_by { |job| job.date_of_job.nil? ? Date.new(9999,12,31) : job.date_of_job }
+      end
     end
-  end
 
   def filter_application_status
     @jobs = @jobs.reject do |job|
