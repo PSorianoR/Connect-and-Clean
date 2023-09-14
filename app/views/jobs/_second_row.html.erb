@@ -1,4 +1,4 @@
-<div class="col-6"></div>
+<div class="col-8">
   <div class="m-3 card w-75 mb-3 rounded-5">
     <div class="card-body">
       <div class="border-bottom border-black">
@@ -13,7 +13,27 @@
         <p class="card-text text-secondary">Date: </p>
         <p class='card-text'> <%= " #{@job.date_of_job.month}/#{@job.date_of_job.day}/#{@job.date_of_job.year}" %></p>
       </div>
-      <%= link_to "Chat With", class: 'btn btn-primary' %>
+      <%= link_to "Chat With", user_path(@job.user), class: 'btn btn-primary btn-rounded' %>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="col-4">
+  <div class="m-3 card w-75 mb-3 rounded-5">
+    <div class="card-body">
+      <div class="border-bottom border-black">
+        <h5 class="card-title text-center"><i class="fa-solid fa-address-book" style="color: #366cc9;"></i> Contact Information</h5>
+        <p class="card-text"> <%= @job.property.description %></p>
+      </div>
+      <div class='d-flex d-flex justify-content-between'>
+        <p> <i class="fa-regular fa-envelope" style="color: #366cc9;"> </i> <%= @job.user.email %> </p>
+      </div>
+      <div class="d-flex justify-content-between mb-2">
+        <li class="list-group-item"> <i class="fa-solid fa-phone" style="color: #2564d0;"></i> <%= @job.user.phone_number %> </li>
+      </div>
+      <%= link_to "Profile", user_path(@job.user), class: 'btn btn-primary btn-rounded' %>
     </div>
   </div>
 </div>

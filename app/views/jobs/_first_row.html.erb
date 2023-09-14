@@ -10,7 +10,7 @@
         <% end %>
         </div>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-8 col-xs-12">
         <div class="card-body">
           <h5 class="card-title"><%= @job.property.title.capitalize %></h5>
           <p class="card-text"> <i class="fa-solid fa-location-dot" style="color: #c92626;"></i> <%= @job.property.address %></p>
@@ -20,9 +20,12 @@
       </div>
     </div>
   </div>
-
 </div>
-</div>
-<div class="col-6">
   <%# Map goes Here %>
+<div class="col-6">
+  <div style="width: 100%; height: 300px;"
+    data-controller="map"
+    data-map-markers-value="<%= @markers.to_json %>"
+    data-map-api-key-value="<%= ENV['MAPBOX_API_KEY'] %>">
+  </div>
 </div>
