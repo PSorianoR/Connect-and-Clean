@@ -35,11 +35,13 @@
     <% elsif job.status == "completed" %>
       <% if manager_review(job).nil? %>
         <p class="current-status">completed</p>
+          <%= link_to "Profile", user_path(cleaner) %>
         <%= link_to "review job", new_job_review_path(job) %>
 
       <%# You cqn only see the review once you wrote a review about the cleaner %>
       <% else %>
         <p class="current-status">reviewed</p>
+          <%= link_to "Profile", user_path(cleaner) %>
         <% unless cleaner_review(job).nil? %>
           <%= link_to "see cleaner review", job_review_path(job, manager_review(job))%>
         <% end %>
@@ -48,8 +50,9 @@
 </div>
 
 <%# Select Picture of the cleaner that applied, accepted, or completed the job. %>
-<% if cleaner %>
-  <%= cl_image_tag cleaner.photo.key, class:"user-icon float-right col-1" %>
-<% else %>
-  <img src="https://res.cloudinary.com/dgabkyhfa/image/upload/v1694625752/vacancy_pdufgm.jpg" class= "user-icon float-right col-1">
-<% end %>
+
+  <% if cleaner %>
+    <%= cl_image_tag cleaner.photo.key, class:"user-icon float-right col-1" %>
+  <% else %>
+    <img src="https://res.cloudinary.com/dgabkyhfa/image/upload/v1694625752/vacancy_pdufgm.jpg" class= "user-icon float-right col-1">
+  <% end %>

@@ -72,7 +72,7 @@ export default class extends Controller {
     })
 
     this.totalPriceTarget.innerHTML = ''
-    this.totalPriceTarget.innerHTML = `Total price for the period: ${newTotal}`
+    this.totalPriceTarget.innerHTML = `Total price for the period: R$ ${newTotal}`
 
   }
 
