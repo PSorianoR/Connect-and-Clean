@@ -1,0 +1,9 @@
+# config/meta.yml
+
+meta_product_name: "Connect & Clean"
+
+meta_title: "Connect & Clean – Connecting Airbnb hosts with cleaners!"
+
+meta_description: "A smooth platform to connect Airbnb hosts and cleaners."
+
+meta_image: "logonavbar.png" # should exist in `app/assets/images/`
