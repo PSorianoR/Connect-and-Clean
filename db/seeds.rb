@@ -23,7 +23,7 @@ emails = ["humberto@lewagon.com", "matt@lewagon.com", "ben@lewagon.com", "pedro@
 "alicja@lewagon.com" ]
 first_names = ["Humberto", "Matt", "Ben", "Pedro", "Alicja"]
 last_names = ["Pedra", "Mcgoovern", "Van Dam", "Soriano", "Surzyn"]
-address = ["Rua Mariz e Barros, Tijuca, Rio De Janeiro, Brazil", "4523  Cedar Lane, Boston, Massachusetts, USA", "Carnotstraat 152, 2060 Antwerpen, Belgium", "1840  Eglinton Avenue, Toronto, Ontario, Canada",
+addresses = ["Rua Mariz e Barros, Tijuca, Rio De Janeiro, Brazil", "4523  Cedar Lane, Boston, Massachusetts, USA", "Carnotstraat 152, 2060 Antwerpen, Belgium", "1840  Eglinton Avenue, Toronto, Ontario, Canada",
 "Jardines Del Country, Mascarones Street, Guadalajara, Mexico"]
 
 user_photos = ["https://ca.slack-edge.com/T02NE0241-U05H2NBRFFY-2422604e0f19-512", "https://ca.slack-edge.com/T02NE0241-U05HJTYFZHP-e8affc977624-512","https://ca.slack-edge.com/T02NE0241-U05GUFPNAF9-29d236e53e03-512", "https://ca.slack-edge.com/T02NE0241-U05GAH9GN5D-d73433a0850a-512",
@@ -40,7 +40,7 @@ emails.each_with_index do |email, index|
   puts "seeding user n. #{index + 1}"
   user = User.new(email: email, first_name: first_names[index],
     last_name: last_names[index], password: '123456',
-    address: address[index])
+    address: addresses[index])
 
     file = URI.open(user_photos[index])
     user.photo.attach(io: file, filename: "nes.png", content_type: "image/png")
