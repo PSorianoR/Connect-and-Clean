@@ -7,16 +7,7 @@
     <%# Find the cleaner that applied (first one), selected, or completed the job. %>
     <% selected_job = job.job_applications.where(status: ["applied","accepted", "completed"]).first %>
     <% if selected_job %>
-      <div>
-        <% cleaner = selected_job.user %>
-
-        <%# Link to chat with the cleaner - Maybe better on show page%>
-        <%= simple_form_for(cleaner, url: chatrooms_path, method: :post) do |form| %>
-          <%= form.hidden_field :user_id, value: cleaner.id %>
-          <%= form.hidden_field :job_id, value: job.id %>
-          <%= form.button :submit, cleaner.first_name %>
-        <% end %>
-      </div>
+      <% cleaner = selected_job.user %>
     <% end %>
   </div>
 </div>
