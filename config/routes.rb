@@ -36,11 +36,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :dashboards, only: %i[index]
+  resources :dashboards, only: %i[index] do
+  end
 
   post 'mode', to: "users#mode", as: "mode"
   patch 'change_status', to: "jobs#change_status", as: "job_change_status"
   get 'properties/info/:id', to: "properties#info", as: "property_info"
+  get 'dashboards/filter', to: "dashboards#filter"
 
 
   # Defines the root path route ("/")

@@ -8,4 +8,17 @@ class Job < ApplicationRecord
 
   # validates :price, presence: true, numericality: { greater_than: 0 }
   # validates :description, presence: true, length: { minimum: 10 }
+
+  def cleaner
+
+    selected_job = self.job_applications.where(status: ["applied","accepted", "completed"]).first
+    if selected_job
+      job_cleaner = selected_job.user
+    else
+      job_cleaner = nil
+    end
+
+    return job_cleaner
+  end
+
 end

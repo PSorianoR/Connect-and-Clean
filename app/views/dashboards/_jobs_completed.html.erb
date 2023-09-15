@@ -1,0 +1,60 @@
+<div class="container mt-4">
+  <div class="row ">
+    <div class="col-md-6 text-center mb-4">
+      <h5 data-date-filter-target="numberJobs" class="text-primary font-weight-bold">Total jobs for the period:</h5>
+      <h5 class="font-weight-bold"><%= jobs.count %></h5>
+    </div>
+    <div class="col-md-6 text-center mb-4">
+      <h5 data-date-filter-target="totalPrice" class="text-primary font-weight-bold"> Total price for the period:</h5>
+      <h5 class="font-weight-bold"> R$ <%= total_price %></h5>
+    </div>
+  </div>
+</div>
+
+
+<div class="container mt-4 text-center">
+  <div class="row mb-2 p-3 border rounded">
+    <div class="row m2">
+      <div class="col border-right">
+        <strong class="text-primary">Property Name</strong>
+      </div>
+      <div class="col border-right">
+        <% if session[:user_role] == "Manager" %>
+          <strong class="text-primary">Cleaner</strong>
+        <% else %>
+          <strong class="text-primary">Manager</strong>
+        <% end %>
+      </div>
+      <div class="col border-right">
+        <strong class="text-primary">Date</strong>
+      </div>
+      <div class="col border-right">
+        <strong class="text-primary">Price</strong>
+      </div>
+    </div>
+  </div>
+   <% jobs.each do |job| %>
+    <%= link_to job_path(job), class: "text-decoration-none text-dark job-link" do %>
+      <div class="row mb-2 p-3 border rounded">
+        <div class="row mb-2">
+          <div class="col">
+            <%= job.property.title%>
+          </div>
+          <div class="col">
+            <% if session[:user_role] == "manager" %>
+              <%= job.cleaner.first_name %>
+            <% else %>
+              <%= job.user.first_name %>
+            <% end %>
+          </div>
+          <div class="col">
+          <%= job.date_of_job %>
+          </div>
+          <div class="col">
+            <%= job.price %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+   <% end %>
+</div>

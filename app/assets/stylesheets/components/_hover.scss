@@ -184,3 +184,8 @@ body{
     color: var(--uirLinkTextColor) !important;
     text-decoration: var(--uirLinkTextDecoration) !important;
 }
+
+.job-link:hover .border {
+  background-color: #f8f9fa; /* Change to your desired hover background color */
+  transition: background-color 0.3s; /* Add a smooth transition effect */
+}
