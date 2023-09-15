@@ -1,10 +1,14 @@
 <div class="star-rating">
-  <% average_rating = @user.average_rating %>
+  <% average_rating = reviews.empty? ? 0 : reviews.map(&:rating).sum.to_f / reviews.size %>
   <% 5.times do |i| %>
-    <% if average_rating >= (i + 1) %>
-      <i class="fas fa-star"></i>
+    <% lower_bound = i + 0.5 %>
+    <% upper_bound = i + 0.9 %>
+    <% if average_rating >= upper_bound %>
+      <i class="fas fa-star"></i> <!-- Filled star -->
+    <% elsif average_rating >= lower_bound %>
+      <i class="fas fa-star-half"></i> <!-- Half-filled star -->
     <% else %>
-      <i class="far fa-star"></i>
+      <i class="far fa-star"></i> <!-- Empty star -->
     <% end %>
   <% end %>
 </div>
