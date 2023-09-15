@@ -48,10 +48,16 @@
       <% end %>
     </div>
   </div>
+
   <div class="m-4">
-    <h2 class='my-4'><%= @user.first_name %>'s Reviews as a cleaner</h2>
-    <% @cleaner_reviews.first(10).each do |review| %>
-      <%= render "review_card", review: review %>
-    <% end %>
+  <h2 class='my-4'><%= @user.first_name %>'s Reviews as a cleaner</h2>
+  <div class="container">
+    <div class="row">
+      <% @cleaner_reviews.first(10).each do |review| %>
+        <%= render "review_card", review: review %>
+      <% end %>
+    </div>
   </div>
+</div>
+
 </div>
