@@ -28,10 +28,15 @@ module ReviewsHelper
 
   def manager_review(job)
     # The job review will be the review for the cleaner for the job, it will therefore be written by the manager
-    cleaner = job.job_applications.find_by(status: "completed").user
+    selected_job = job.job_applications.find_by(status: "completed")
+    if selected_job
+      cleaner = selected_job.user
+    end
 
      # Now find the review that the manager wrote about the job
-     return job.reviews.find_by(user_id: cleaner.id)
+     if selected_job
+      return job.reviews.find_by(user_id: cleaner.id)
+     end
   end
 
   def manager_all_reviews(manager)

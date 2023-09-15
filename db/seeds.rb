@@ -388,22 +388,22 @@ count = 0
 # walid seeding
   30.times do
     Job.create!({ property: Property.first, price: 75, status: "completed", user: User.find_by(first_name: "Humberto"), description: cleaning_jobs_description[count], date_of_job: Date.new(2023,9,1) })
-    JobApplication.create!({ user: User.find_by(first_name: "Walid"), job: Job.find_by(description: cleaning_jobs_description[count] ), status: "completed" })
-    Review.create!( { job: Job.find_by(description: cleaning_jobs_description[count] ), user: User.find_by(first_name: "Humberto"), rating: rating_array.sample, description: cleaning_job_reviews[count] })
+    JobApplication.create!({ user: User.find_by(first_name: "Walid"), job: Job.last, status: "completed" })
+    Review.create!( { job: Job.last, user: User.find_by(first_name: "Humberto"), rating: rating_array.sample, description: cleaning_job_reviews[count] })
     count += 1
   end
 
   30.times do
     Job.create!({ property: Property.first, price: 75, status: "completed", user: User.find_by(first_name: "Humberto"), description: house_cleaning_job_descriptions_3[count], date_of_job: Date.new(2023,9,2) })
-    JobApplication.create!({ user: User.find_by(first_name: "Matt"), job: Job.find_by(description: house_cleaning_job_descriptions_3[count] ), status: "completed" })
-    Review.create!( { job: Job.find_by(description: house_cleaning_job_descriptions_3[count] ), user: User.find_by(first_name: "Humberto"), rating: rating_avarage_array.sample, description: cleaning_job_reviews_3_out_of_5[count] })
+    JobApplication.create!({ user: User.find_by(first_name: "Matt"), job: Job.last, status: "completed" })
+    Review.create!( { job: Job.last, user: User.find_by(first_name: "Humberto"), rating: rating_avarage_array.sample, description: cleaning_job_reviews_3_out_of_5[count] })
     count += 1
   end
 
   30.times do
     Job.create!({ property: Property.first, price: 75, status: "completed", user: User.find_by(first_name: "Humberto"), description: house_cleaning_job_descriptions_2[count], date_of_job: Date.new(2023,9,3) })
-    JobApplication.create!({ user: User.find_by(first_name: "Alicja"), job: Job.find_by(description: house_cleaning_job_descriptions_2[count] ), status: "completed" })
-    Review.create!( { job: Job.find_by(description: house_cleaning_job_descriptions_2[count] ), user: User.find_by(first_name: "Humberto"), rating: rating_poor_array.sample, description: cleaning_job_reviews_1_and_2_out_of_5[count] })
+    JobApplication.create!({ user: User.find_by(first_name: "Alicja"), job: Job.last, status: "completed" })
+    Review.create!( { job: Job.last, user: User.find_by(first_name: "Humberto"), rating: rating_poor_array.sample, description: cleaning_job_reviews_1_and_2_out_of_5[count] })
     count += 1
   end
 
