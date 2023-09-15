@@ -20,14 +20,14 @@ Chatroom.destroy_all
 
 array_of_users = []
 emails = ["humberto@lewagon.com", "matt@lewagon.com", "ben@lewagon.com", "pedro@lewagon.com",
-"alicja@lewagon.com" ]
-first_names = ["Humberto", "Matt", "Ben", "Pedro", "Alicja"]
-last_names = ["Pedra", "Mcgoovern", "Van Dam", "Soriano", "Surzyn"]
-addresses = ["Rua Mariz e Barros, Tijuca, Rio De Janeiro, Brazil", "4523  Cedar Lane, Boston, Massachusetts, USA", "Carnotstraat 152, 2060 Antwerpen, Belgium", "1840  Eglinton Avenue, Toronto, Ontario, Canada",
-"Jardines Del Country, Mascarones Street, Guadalajara, Mexico"]
+"alicja@lewagon.com", "walid@lewagon.com", "caio@lewagon.com", "chloe@lewagon.com"]
+first_names = ["Humberto", "Matt", "Ben", "Pedro", "Alicja", "Walid", "Caio", "Chloe"]
+last_names = ["Pedra", "McGovern", "Van Dam", "Soriano", "Surzyn", "Daddy", "Pereira", "Bouillot"]
+addresses = ["Rua Marize Barros, Tijuca, Rio De Janeiro, Brazil", "4523  Cedar Lane, Boston, Massachusetts, USA", "Carnotstraat 152, 2060 Antwerpen, Belgium", "1840  Eglinton Avenue, Toronto, Ontario, Canada",
+"Jardines Del Country, Mascarones Street, Guadalajara, Mexico", "Haddock Lobo, Tijuca, Rio De Janeiro, Brazil", "Rua timoteo da costa, Leblon, Rio De Janeiro, Brazil", "conde de baependi 13, Laranjeiras, Rio De Janeiro, Brazil"]
 
 user_photos = ["https://ca.slack-edge.com/T02NE0241-U05H2NBRFFY-2422604e0f19-512", "https://ca.slack-edge.com/T02NE0241-U05HJTYFZHP-e8affc977624-512","https://ca.slack-edge.com/T02NE0241-U05GUFPNAF9-29d236e53e03-512", "https://ca.slack-edge.com/T02NE0241-U05GAH9GN5D-d73433a0850a-512",
-"https://ca.slack-edge.com/T02NE0241-U05FVLK1859-a09f85bddaf5-512"]
+"https://ca.slack-edge.com/T02NE0241-U05FVLK1859-a09f85bddaf5-512","https://ca.slack-edge.com/T02NE0241-U05GFH6FBQ9-e055e36487f4-512", "https://ca.slack-edge.com/T02NE0241-U05H16LF2MU-89f529554cfd-512", "https://ca.slack-edge.com/T02NE0241-U03PWB0D79B-6937e37d4aeb-512" ]
 
 
 puts "Starting to seed..."
@@ -56,7 +56,8 @@ roles = {
   "matt@lewagon.com": ["cleaner", "manager"],
   "pedro@lewagon.com": ["cleaner", "manager"],
   "ben@lewagon.com": ["cleaner"],
-  "alicja@lewagon.com": ["cleaner", "manager"]
+  "alicja@lewagon.com": ["cleaner", "manager"],
+  "walid@lewagon.com": ["cleaner"]
 }
 
 # Iterate over the roles hash and create roles for users
@@ -74,14 +75,14 @@ end
 
 puts "Seeding properties..."
 
-Property.create!({ title: "Casa Serrana do Humberto", user: User.find_by(first_name: "Humberto"),
-  address: "Alameda Arnaldo Guinle, 10, Teresopolis, Brazil", default_job_price: 25, default_cleaning_from: "11:00", default_cleaning_until: "14:00"})
+Property.create!({ title: "Casa Teresopolis", user: User.find_by(first_name: "Humberto"),
+  address: "Alameda Arnaldo Guinle, 10, Teresopolis, Brazil", default_job_price: 75, default_cleaning_from: "11:00 AM", default_cleaning_until: "02:00 PM"})
 
 Property.create!({ title: "Alicja's Crib on Rio", user: User.find_by(first_name: "Alicja"),
-address: "Voluntarios da Patria 90, Botafogo, Rio de Janeiro, Brazil", default_job_price: 50, default_cleaning_from: "09:00", default_cleaning_until: "18:00"})
+address: "Voluntarios da Patria 90, Botafogo, Rio de Janeiro, Brazil", default_job_price: 50, default_cleaning_from: "10:00 AM", default_cleaning_until: "12:00 PM"})
 
-Property.create!({ title: "Casa Praiana do Humberto", user: User.find_by(first_name: "Humberto"),
-  address: "Rua das Pedras 10, Buzios, Rio de Janeiro, Brazil", default_job_price: 35, default_cleaning_from: "10:00", default_cleaning_until: "12:00"}
+Property.create!({ title: "Casa Buzios", user: User.find_by(first_name: "Humberto"),
+  address: "Rua das Pedras 10, Buzios, Rio de Janeiro, Brazil", default_job_price: 100, default_cleaning_from: "10:00 AM", default_cleaning_until: "12:00 PM"}
   )
 
 
@@ -94,12 +95,13 @@ Property.create!({ title: "Casa Praiana do Humberto", user: User.find_by(first_n
     Team.create!({ user: User.find_by(first_name: "Humberto"), property: Property.first, profession: "manager"})
 
 
+
     Team.create!({ user: User.find_by(first_name: "Alicja"), property: Property.find_by(title: "Alicja's Crib on Rio"), profession: "manager"})
 
     # Second property has three managers:
   Team.create!({ user: User.find_by(first_name: "Humberto"), property: Property.last, profession: "manager"})
   Team.create!({ user: User.find_by(first_name: "Matt"), property: Property.last, profession: "manager"})
-  Team.create!({ user: User.find_by(first_name: "Pedro"), property: Property.last, profession: "manager" } )
+  # Team.create!({ user: User.find_by(first_name: "Pedro"), property: Property.last, profession: "manager" } )
 
 
 
@@ -107,12 +109,12 @@ Property.create!({ title: "Casa Praiana do Humberto", user: User.find_by(first_n
   # Creating cleaners for a property
 
   # first property has two cleaners:
-  Team.create!({ user: User.find_by(first_name: "Ben"), property: Property.first, profession: "cleaner" })
-  Team.create!({ user: User.find_by(first_name: "Pedro"), property: Property.first, profession: "cleaner" })
+  Team.create!({ user: User.find_by(first_name: "Alicja"), property: Property.first, profession: "cleaner" })
+  Team.create!({ user: User.find_by(first_name: "Caio"), property: Property.first, profession: "cleaner" })
 
   # Second property has one cleaner
-  Team.create!({ user: User.find_by(first_name: "Matt"), property: Property.last, profession: "cleaner" })
-  Team.create!({ user: User.find_by(first_name: "Pedro"), property: Property.last, profession: "cleaner" })
+  Team.create!({ user: User.find_by(first_name: "Walid"), property: Property.last, profession: "cleaner" })
+  Team.create!({ user: User.find_by(first_name: "Ben"), property: Property.last, profession: "cleaner" })
 
   puts "Seeding jobs..."
   # The user of a job is the person who created the job.
@@ -174,6 +176,46 @@ Property.create!({ title: "Casa Praiana do Humberto", user: User.find_by(first_n
   # job2property2 has a review by the manager about the cleaner.
   # The cleaner is Pedro in this case, can be linked through job_applications table: person with status completed for the job
 
+
   # Review.create!( {job: Job.find_by(description: "job2property1" ), user: User.find_by(first_name: "Humberto"), rating: 2, description: "Pedro did a awful job" })
+  # puts "Creating Last seedings"
+  # 30.times do
+  #   Job.create!({ property: Property.first, price: 75, status: "completed", user: User.find_by(first_name: "Humberto"), description: "Clean the living room, washrooms and kitchen. water the plants.", date_of_job: Date.new(2023,9,1) })
+  #   JobApplication.create!({ user: User.find_by(first_name: "Walid"), job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), status: "completed" })
+  #   # Review.new()
+  # end
+  # # 15 reviews of walid with 4.0 rating
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4, description: "Exceptional service, spotless home – highly recommend this cleaner!" })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4, description: "Immaculate cleaning, prompt and friendly. Truly satisfied with their work!" })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4, description: "Efficient, reliable, and thorough. Our home sparkles after each visit!" })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4, description: "Professional cleaner, attention to detail, makes our house shine brilliantly." })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4, description: "Pristine results every time. The cleaner is a true cleaning wizard!" })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4, description: "Dependable cleaner, transforms chaos into order effortlessly. Very impressed!" })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4, description: "Cleaning genius! Our place is always a pleasure to come home to." })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4, description: "Meticulous work, leaves no corner untouched. A cleaning perfectionist!" })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4, description: "Top-notch cleaner, trustworthy, and consistently exceeds expectations." })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4, description: "House feels brand new after the cleaner's magic touch. Highly recommended!" })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4, description: "Exemplary cleaner – transforms mess into neatness swiftly and efficiently!" })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4, description: "Outstanding cleaning service – we're delighted with their consistent performance." })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4, description: "Cleans with precision, our home gleams with freshness. A cleaning virtuoso!" })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4, description: "Effortless scheduling, cleaner brings joy with their exceptional cleaning skills." })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4, description: "Our cleaner is a lifesaver! Always reliable, and our home shines!" })
+
+  # # 15 reviews of walid with 4.4 rating
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4.4, description: "Exceptional service, spotless home – highly recommend this cleaner!" })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4.4, description: "Immaculate cleaning, prompt and friendly. Truly satisfied with their work!" })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4.4, description: "Efficient, reliable, and thorough. Our home sparkles after each visit!" })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4.4, description: "Professional cleaner, attention to detail, makes our house shine brilliantly." })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4.4, description: "Pristine results every time. The cleaner is a true cleaning wizard!" })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4.4, description: "Dependable cleaner, transforms chaos into order effortlessly. Very impressed!" })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4.4, description: "Cleaning genius! Our place is always a pleasure to come home to." })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4.4, description: "Meticulous work, leaves no corner untouched. A cleaning perfectionist!" })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4.4, description: "Top-notch cleaner, trustworthy, and consistently exceeds expectations." })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4.4, description: "House feels brand new after the cleaner's magic touch. Highly recommended!" })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4.4, description: "Exemplary cleaner – transforms mess into neatness swiftly and efficiently!" })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4.4, description: "Outstanding cleaning service – we're delighted with their consistent performance." })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4.4, description: "Cleans with precision, our home gleams with freshness. A cleaning virtuoso!" })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4.4, description: "Effortless scheduling, cleaner brings joy with their exceptional cleaning skills." })
+  # Review.create!( {job: Job.find_by(description: "Clean the living room, washrooms and kitchen. water the plants." ), user: User.find_by(first_name: "Humberto"), rating: 4.4, description: "Our cleaner is a lifesaver! Always reliable, and our home shines!" })
 
   puts "Completed seeds"
