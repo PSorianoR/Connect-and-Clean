@@ -20,8 +20,8 @@
     </div>
   </div>
 </div>
-<% if session[:user_role] = "manager" %>
-  <%= render 'profile_card_manager'%>
-<% else %>
+<% if session[:user_role] == "manager" %>
   <%= render 'profile_card_cleaner'%>
+<% else %>
+  <%= render 'profile_card_manager'%>
 <% end %>
