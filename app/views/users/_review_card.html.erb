@@ -1,7 +1,9 @@
-<div class="card border-3 rounded-5" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title"> From: <%= review.user.first_name %></h5>
-    <h6 class="card-subtitle mb-2 text-body-secondary">Rating: <%= review.rating %></h6>
-    <p class="card-text"><p><%= review.description %></p>
+<div class="col-4 m-2">
+  <div class="card border-3 rounded-5" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title"> From: <%= review.user.first_name %></h5>
+      <h6 class="card-subtitle mb-2 text-body-secondary">Rating: <%= review.rating %> <i class="fa-solid fa-star" style="color: #f4d84e;"></i></h6>
+      <p class="card-text"><%= review.description %></p>
+    </div>
   </div>
 </div>
