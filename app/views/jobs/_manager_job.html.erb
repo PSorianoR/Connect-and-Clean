@@ -1,7 +1,7 @@
 <%# Job card for the manager %>
 <div class="col-7">
   <div class="job-info">
-    <h2> <%= job.property.title %> </h2>
+    <h2> <%= link_to job.property.title, job_path(job) %> </h2>
     <p>  R$ <%= job.price.round %></p>
 
     <%# Find the cleaner that applied (first one), selected, or completed the job. %>
@@ -22,23 +22,24 @@
   <% elsif job.status == "applied" %>
     <p class="current-status">The job has applicants, select one.</p>
 
+  <%# Job shows as accepted if it has been accepted. %>
+  <% elsif job.status == "accepted" %>
+    <p class="current-status">Status: <%= job.status %></p>
+
   <%# You can review the job once it has been completed %>
   <% elsif job.status == "completed" %>
     <% if manager_review(job).nil? %>
-      <div class="current-status">
-        <div class="container">
-          completed
-          <p><%= link_to "Profile", user_path(cleaner) %></p>
-          <p><%= link_to "review job", new_job_review_path(job) %></p>
-        </div>
+      <div>
+          <p class="current-status">Completed</p>
+          <%= link_to "Profile", user_path(cleaner), class: "d-none" %>
+          <%= link_to "review job", new_job_review_path(job) %>
       </div>
-
-    <%# You cqn only see the review once you wrote a review about the cleaner %>
+    <%# You can only see the review once you wrote a review about the cleaner %>
     <% else %>
       <p class="current-status">Reviewed</p>
         <%= link_to "Profile", user_path(cleaner) %>
-      <% unless cleaner_review(job).nil? %>
-        <%= link_to "See cleaner review", job_review_path(job, manager_review(job))%>
+        <% unless cleaner_review(job).nil? %>
+          <%= link_to "See cleaner review", job_review_path(job, manager_review(job))%>
       <% end %>
     <% end %>
   <% end %>

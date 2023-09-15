@@ -21,7 +21,9 @@
   </div>
 </div>
 <% if session[:user_role] == "manager" %>
-  <%= render 'profile_card_cleaner'%>
+  <% if @job.cleaner %>
+    <%= render 'profile_card_cleaner'%>
+  <% end %>
 <% else %>
   <%= render 'profile_card_manager'%>
 <% end %>
