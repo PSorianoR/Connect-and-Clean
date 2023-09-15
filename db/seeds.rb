@@ -23,7 +23,7 @@ emails = ["humberto@lewagon.com", "matt@lewagon.com", "ben@lewagon.com", "pedro@
 "alicja@lewagon.com" ]
 first_names = ["Humberto", "Matt", "Ben", "Pedro", "Alicja"]
 last_names = ["Pedra", "Mcgoovern", "Van Dam", "Soriano", "Surzyn"]
-address = ["Rua Mariz e Barros, Tijuca, Rio De Janeiro, Brazil", "4523  Cedar Lane, Boston, Massachusetts, USA", "Carnotstraat 152, 2060 Antwerpen, Belgium", "1840  Eglinton Avenue, Toronto, Ontario, Canada",
+addresses = ["Rua Mariz e Barros, Tijuca, Rio De Janeiro, Brazil", "4523  Cedar Lane, Boston, Massachusetts, USA", "Carnotstraat 152, 2060 Antwerpen, Belgium", "1840  Eglinton Avenue, Toronto, Ontario, Canada",
 "Jardines Del Country, Mascarones Street, Guadalajara, Mexico"]
 
 user_photos = ["https://ca.slack-edge.com/T02NE0241-U05H2NBRFFY-2422604e0f19-512", "https://ca.slack-edge.com/T02NE0241-U05HJTYFZHP-e8affc977624-512","https://ca.slack-edge.com/T02NE0241-U05GUFPNAF9-29d236e53e03-512", "https://ca.slack-edge.com/T02NE0241-U05GAH9GN5D-d73433a0850a-512",
@@ -40,7 +40,7 @@ emails.each_with_index do |email, index|
   puts "seeding user n. #{index + 1}"
   user = User.new(email: email, first_name: first_names[index],
     last_name: last_names[index], password: '123456',
-    address: address[index])
+    address: addresses[index])
 
     file = URI.open(user_photos[index])
     user.photo.attach(io: file, filename: "nes.png", content_type: "image/png")
@@ -120,15 +120,15 @@ Property.create!({ title: "Casa Praiana do Humberto", user: User.find_by(first_n
   # job_applications table Cleaner is therefore not a column in jobs table.
 
   # first property has 4 jobs: 1 Open, 1 applied, 1 accepted, 1 completed
-  Job.create!({ property: Property.first, price: 25, status: "open", user: User.find_by(first_name: "Humberto"), description: "job1property1", date_of_job: Date.new(2023,9,1) })
-  Job.create!({ property: Property.first, price: 25, status: "applied", user: User.find_by(first_name: "Humberto"), description: "job2property1", post_all: true, date_of_job: Date.new(2023,9,2) })
-  Job.create!({ property: Property.first, price: 25, status: "accepted", user: User.find_by(first_name: "Humberto"), description: "job3property1", date_of_job: Date.new(2023,9,3) })
-  Job.create!({ property: Property.first, price: 25, status: "completed", user: User.find_by(first_name: "Humberto"), description: "job4property1", date_of_job: Date.new(2023,9,4) })
+  Job.create!({ property: Property.first, price: 25, status: "open", user: User.find_by(first_name: "Humberto"), description: "Please clean my Casa Serrana!", date_of_job: Date.new(2023,9,1) })
+  Job.create!({ property: Property.first, price: 25, status: "applied", user: User.find_by(first_name: "Humberto"), description: "Please clean my Casa Serrana! again.", post_all: true, date_of_job: Date.new(2023,9,2) })
+  Job.create!({ property: Property.first, price: 25, status: "accepted", user: User.find_by(first_name: "Humberto"), description: "Please clean my Casa Serrana for the third time", date_of_job: Date.new(2023,9,3) })
+  Job.create!({ property: Property.first, price: 25, status: "completed", user: User.find_by(first_name: "Humberto"), description: "Please clean my Casa Serrana for the forth time", date_of_job: Date.new(2023,9,4) })
   Job.create!({ property: Property.first, price: 100, status: "completed", user: User.find_by(first_name: "Humberto"), description: "job5property1", date_of_job: Date.new(2023,9,5) })
 
   # second property has 2 jobs: 1 applied, 1 completed
-  Job.create!({ property: Property.last, price: 35, status: "applied", user: User.find_by(first_name: "Matt"), description: "job1property2", date_of_job: Date.new(2023,9,6) })
-  Job.create!({ property: Property.last, price: 35, status: "completed", user: User.find_by(first_name: "Humberto"), description: "job2property2", date_of_job: Date.new(2023,9,7) })
+  Job.create!({ property: Property.last, price: 35, status: "applied", user: User.find_by(first_name: "Matt"), description: "Please clean my Casa de Praia in Buzios!", date_of_job: Date.new(2023,9,6) })
+  Job.create!({ property: Property.last, price: 35, status: "completed", user: User.find_by(first_name: "Humberto"), description: "Please clean my Casa de Praia in Buzios again!", date_of_job: Date.new(2023,9,7) })
 
   puts "Seeding jobs applications"
 
@@ -143,37 +143,37 @@ Property.create!({ title: "Casa Praiana do Humberto", user: User.find_by(first_n
 # job1property1 has no applications and therefore has status open.
 
 # job2property1 has 1 applications by Matt and has status applied. Matt needs to apply because he is not in the cleaning team.
-  JobApplication.create!({ user: User.find_by(first_name: "Matt"), job: Job.find_by(description: "job2property1" ), status: "applied" })
+  JobApplication.create!({ user: User.find_by(first_name: "Matt"), job: Job.find_by(description: "Please clean my Casa Serrana! again." ), status: "applied" })
 
 # job3property1 was accepted by Pedro, Ben had applied but is now rejected from the job.
-  JobApplication.create!({ user: User.find_by(first_name: "Pedro"), job: Job.find_by(description: "job3property1" ), status: "accepted" })
-  JobApplication.create!({ user: User.find_by(first_name: "Ben"), job: Job.find_by(description: "job3property1" ), status: "rejected" })
+  JobApplication.create!({ user: User.find_by(first_name: "Pedro"), job: Job.find_by(description: "Please clean my Casa Serrana for the third time" ), status: "accepted" })
+  JobApplication.create!({ user: User.find_by(first_name: "Ben"), job: Job.find_by(description: "Please clean my Casa Serrana for the third time" ), status: "rejected" })
 
   # job4property1 was completed by Ben
-  JobApplication.create!({ user: User.find_by(first_name: "Ben"), job: Job.find_by(description: "job4property1" ), status: "completed" })
+  JobApplication.create!({ user: User.find_by(first_name: "Ben"), job: Job.find_by(description: "Please clean my Casa Serrana for the forth time" ), status: "completed" })
   JobApplication.create!({ user: User.find_by(first_name: "Ben"), job: Job.find_by(description: "job5property1" ), status: "completed" })
   # job1property2 has two application by Pedro and Ben. They need to apply because they are not in the cleaning team.
   # The job was rejected by Matt
-  JobApplication.create!({ user: User.find_by(first_name: "Pedro"), job: Job.find_by(description: "job1property2" ), status: "applied" })
-  JobApplication.create!({ user: User.find_by(first_name: "Ben"), job: Job.find_by(description: "job1property2" ), status: "applied" })
-  JobApplication.create!({ user: User.find_by(first_name: "Matt"), job: Job.find_by(description: "job1property2" ), status: "rejected" })
+  JobApplication.create!({ user: User.find_by(first_name: "Pedro"), job: Job.find_by(description: "Please clean my Casa de Praia in Buzios!" ), status: "applied" })
+  JobApplication.create!({ user: User.find_by(first_name: "Ben"), job: Job.find_by(description: "Please clean my Casa de Praia in Buzios!" ), status: "applied" })
+  JobApplication.create!({ user: User.find_by(first_name: "Matt"), job: Job.find_by(description: "Please clean my Casa de Praia in Buzios!" ), status: "rejected" })
 
   #job2property2 was completed by Pedro, and rejected by Ben.
-  JobApplication.create!({ user: User.find_by(first_name: "Pedro"), job: Job.find_by(description: "job2property2" ), status: "completed" })
-  JobApplication.create!({ user: User.find_by(first_name: "Ben"), job: Job.find_by(description: "job2property2" ), status: "rejected" })
+  JobApplication.create!({ user: User.find_by(first_name: "Pedro"), job: Job.find_by(description: "Please clean my Casa de Praia in Buzios again!" ), status: "completed" })
+  JobApplication.create!({ user: User.find_by(first_name: "Ben"), job: Job.find_by(description: "Please clean my Casa de Praia in Buzios again!" ), status: "rejected" })
 
   puts "Seeding reviews"
   # The user_id in the reviews table is the id of user that wrote the id
 
   # job4property1 has a review by the manager about the cleaner
   # The cleaner is Ben in this case, can be linked through job_applications table: person with status completed for the job
-  Review.create!( {job: Job.find_by(description: "job4property1" ), user: User.find_by(first_name: "Humberto"), rating: 4, description: "Ben did a great job" })
+  # Review.create!( {job: Job.find_by(description: "job4property1" ), user: User.find_by(first_name: "Humberto"), rating: 4, description: "Ben did a great job" })
   # job4property1 has a review by the cleaner about the property
-  Review.create!( {job: Job.find_by(description: "job4property1" ), user: User.find_by(first_name: "Ben"), rating: 3, description: "The property was very dirty" })
+  # Review.create!( {job: Job.find_by(description: "job4property1" ), user: User.find_by(first_name: "Ben"), rating: 3, description: "The property was very dirty" })
 
   # job2property2 has a review by the manager about the cleaner.
   # The cleaner is Pedro in this case, can be linked through job_applications table: person with status completed for the job
 
-  Review.create!( {job: Job.find_by(description: "job2property1" ), user: User.find_by(first_name: "Humberto"), rating: 2, description: "Pedro did a awful job" })
+  # Review.create!( {job: Job.find_by(description: "job2property1" ), user: User.find_by(first_name: "Humberto"), rating: 2, description: "Pedro did a awful job" })
 
   puts "Completed seeds"

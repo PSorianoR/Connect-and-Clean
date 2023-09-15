@@ -13,7 +13,19 @@
               <h1><%= @user.first_name %></h1>
               <p>Years on C&C: 3 Years</p>
               <p>Email: <%= @user.email %></p>
-              <p><strong>Rating:</strong> <%= render partial: 'users/star_rating', locals: { user: @user } %></p>
+
+
+
+            <!-- Display average ratings for cleaners and managers -->
+            <h2>Average Cleaner Rating:</h2>
+            <%= render partial: 'users/star_rating', locals: { user: @user, reviews: @cleaner_reviews } %>
+
+
+
+
+<!-- Other user content... -->
+
+
               <!-- Reviews Section -->
               <div class="reviews">
 

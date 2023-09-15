@@ -28,11 +28,11 @@ class User < ApplicationRecord
 
   def cleaner_tier
     if number_of_completed_jobs > 10
-      if avarage_rating > 4.5
+      if average_rating > 4.5
         "#3083dc;"
-      elsif avarage_rating > 4
+      elsif average_rating > 4
         "#ffea00;"
-      elsif avarage_rating > 3.5
+      elsif average_rating > 3.5
         "#8e9aaf;"
       else
         "#ef8354;"
