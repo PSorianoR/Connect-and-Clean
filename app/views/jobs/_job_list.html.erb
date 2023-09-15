@@ -1,5 +1,6 @@
 <% if jobs %>
   <% jobs.each do |job| %>
+
     <%= link_to job_path(job) do %>
       <div class="job-listing custom-container d-flex justify-content-between container align-items-center custom-container-height rounded-md card-product custom-image-width btn border-radius-containers mt-2 mb-3">
         <% if job.property.photo.attached? %>
@@ -13,7 +14,6 @@
         <% else %>
           <%= render partial: 'cleaner_job', locals: { job: job } %>
         <% end %>
-      </div>
-    <% end %>
+    </div>
   <% end %>
 <% end %>
