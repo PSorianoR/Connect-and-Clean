@@ -1,7 +1,7 @@
 <%# Job card for the cleaner %>
 <div class="col-7">
   <div class="job-info">
-    <h2> <%= job.property.title %> </h2>
+     <h2> <%= link_to job.property.title, job_path(job) %> </h2>
     <p>  R$ <%= job.price.round %></p>
 
     <%# Get link to chat with manager %>
