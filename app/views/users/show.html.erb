@@ -1,24 +1,24 @@
- <div class="container mt-5">
-        <div class="row">
-            <div class="col-md-4">
-                <!-- Profile Photo -->
-                <% if current_user.photo.attached?  %>
-                  <a class="nav-link" href="#" data-bs-toggle="dropdown"><%= cl_image_tag @user.photo.key, class:"img-fluid rounded-circle", width: 600, height: 600, crop: :fill %></a>
-                <% else %>
-                  <a class="nav-link" href="#" data-bs-toggle="dropdown"><img src="https://images.nightcafe.studio//assets/profile.png?tr=w-640,c-at_max" alt="Image not found" class= "avatar dropdown-toggle"></a>
-                <% end %>
-            </div>
-            <div class="col-md-8">
-              <!-- Profile Information -->
-              <h1><%= @user.first_name %></h1>
-              <p>Years on C&C: 3 Years</p>
-              <p>Email: <%= @user.email %></p>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col-md-4">
+        <!-- Profile Photo -->
+      <% if current_user.photo.attached?  %>
+        <a class="nav-link" href="#" data-bs-toggle="dropdown"><%= cl_image_tag @user.photo.key, class:"img-fluid rounded-circle", width: 600, height: 600, crop: :fill %></a>
+      <% else %>
+        <a class="nav-link" href="#" data-bs-toggle="dropdown"><img src="https://images.nightcafe.studio//assets/profile.png?tr=w-640,c-at_max" alt="Image not found" class= "avatar dropdown-toggle"></a>
+      <% end %>
+    </div>
+    <div class="col-md-8">
+      <!-- Profile Information -->
+      <h1><%= @user.first_name %> <%= @user.last_name %></h1>
+      <h6 class='my-4'>Years on C&C: 3 Years</h6>
+      <p class='my-4'>Email: <%= @user.email %></p>
 
 
 
-            <!-- Display average ratings for cleaners and managers -->
-            <h2>Average Cleaner Rating:</h2>
-            <%= render partial: 'users/star_rating', locals: { user: @user, reviews: @cleaner_reviews } %>
+      <!-- Display average ratings for cleaners and managers -->
+      <h2 class='my-4'>Rating: <%= render partial: 'users/star_rating', locals: { user: @user, reviews: @cleaner_reviews } %></h2>
+
 
 
 
@@ -26,33 +26,32 @@
 <!-- Other user content... -->
 
 
-              <!-- Reviews Section -->
-              <div class="reviews">
+      <!-- Reviews Section -->
+      <div class="reviews">
 
-                <h2><%= @user.first_name %>'s Reviews as a cleaner</h2>
-                <% @cleaner_reviews.each do |review| %>
-                  <div class="review">
-                  <h3><strong>Reviewer:</strong> <%= review.user.first_name %></h3>
-                    <p><%= review.description %></p>
-                    <p><strong>Rating:</strong> <%= review.rating %></p>
-                  </div>
-                <% end %>
-                <%# <% @manager_reviews.each do |review| %>
-                  <%# <div class="review"> %>
-                  <%# <h3><strong>Reviewer:</strong> <%= review.user.first_name %>
-                    <%# <p><%= review.description %>
-                    <%# <p>Rating: <%= review.rating %>
-                  <%# </div> %>
-                <%# <% end %>
-              </div>
-              <p>Location: <%= @user.address %></p>
-              <!-- About Profile Section -->
-              <h2>About Me</h2>
-              <p>Learning to code from scratch.</p>
-              <!-- Edit Profile Button -->
-              <% if current_user == @user %>
-                <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-primary" %>
-              <% end %>
-            </div>
-        </div>
+
+        <%# <% @manager_reviews.each do |review| %>
+          <%# <div class="review"> %>
+          <%# <h3><strong>Reviewer:</strong> <%= review.user.first_name %>
+            <%# <p><%= review.description %>
+            <%# <p>Rating: <%= review.rating %>
+          <%# </div> %>
+        <%# <% end %>
+      </div>
+      <h4 class='my-4'>Location: <%= @user.address %></h4>
+      <!-- About Profile Section -->
+      <h2>About Me</h2>
+      <p>Very Handsome belgium guy! Hard worker, success-driven and I love a bear in the end of the day</p>
+      <!-- Edit Profile Button -->
+      <% if current_user == @user %>
+        <%= link_to "Edit Profile", edit_user_registration_path, class: "btn btn-primary" %>
+      <% end %>
     </div>
+  </div>
+  <div class="m-4">
+    <h2 class='my-4'><%= @user.first_name %>'s Reviews as a cleaner</h2>
+    <% @cleaner_reviews.first(10).each do |review| %>
+      <%= render "review_card", review: review %>
+    <% end %>
+  </div>
+</div>
