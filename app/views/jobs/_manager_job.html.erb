@@ -13,31 +13,35 @@
 </div>
 
 <div class="date-created col-2">
-  <p class="align-items-center"><%= job.date_of_job %></p>
-  <% if job.status != "completed" %>
-    <p class="current-status"><%= job.status %></p>
-  <% end %>
 
-    <%# You can accept the application for one of the cleaners that applied. %>
-    <% if job.status == "applied" %>
-      <%= link_to "Accept Application", job_path(job) %>
+  <%# Show open status if there are no job applications yet. %>
+  <% if job.status == "open" %>
+    <p class="current-status">Status: <%= job.status.capitalize %></p>
 
-    <%# You can review the job once it has been completed %>
-    <% elsif job.status == "completed" %>
-      <% if manager_review(job).nil? %>
-        <p class="current-status">completed</p>
-          <%= link_to "Profile", user_path(cleaner) %>
-        <%= link_to "review job", new_job_review_path(job) %>
+  <%# You can accept the application for one of the cleaners that applied. %>
+  <% elsif job.status == "applied" %>
+    <p class="current-status">The job has applicants, select one.</p>
 
-      <%# You cqn only see the review once you wrote a review about the cleaner %>
-      <% else %>
-        <p class="current-status">reviewed</p>
-          <%= link_to "Profile", user_path(cleaner) %>
-        <% unless cleaner_review(job).nil? %>
-          <%= link_to "see cleaner review", job_review_path(job, manager_review(job))%>
-        <% end %>
+  <%# You can review the job once it has been completed %>
+  <% elsif job.status == "completed" %>
+    <% if manager_review(job).nil? %>
+      <div class="current-status">
+        <div class="container">
+          completed
+          <p><%= link_to "Profile", user_path(cleaner) %></p>
+          <p><%= link_to "review job", new_job_review_path(job) %></p>
+        </div>
+      </div>
+
+    <%# You cqn only see the review once you wrote a review about the cleaner %>
+    <% else %>
+      <p class="current-status">Reviewed</p>
+        <%= link_to "Profile", user_path(cleaner) %>
+      <% unless cleaner_review(job).nil? %>
+        <%= link_to "See cleaner review", job_review_path(job, manager_review(job))%>
       <% end %>
     <% end %>
+  <% end %>
 </div>
 
 <%# Select Picture of the cleaner that applied, accepted, or completed the job. %>

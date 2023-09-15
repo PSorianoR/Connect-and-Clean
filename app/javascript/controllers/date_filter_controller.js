@@ -3,7 +3,7 @@ import { Controller } from "@hotwired/stimulus"
 // Connects to data-controller="date-filter"
 export default class extends Controller {
 
-  static targets = ["from", "until", "jobs", "numberJobs", "totalPrice", "month"]
+  static targets = ["from", "until", "jobs", "numberJobs", "totalPrice", "month","jobsGrid"]
 
   connect() {
 
@@ -37,19 +37,13 @@ export default class extends Controller {
     console.log(until);
 
     // Make an AJAX request to your Rails controller
-    fetch(`/dashboards?from_date=${from}&until_date=${until}.json`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-      }
+    fetch(`/dashboards/filter?from_date=${from}&until_date=${until}`)
+    .then(response => response.text())
+    .then(html => {
+      console.log(html);
+      this.jobsGridTarget.innerHTML = html;
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        this.updateJobs(data);
-      })
-      .catch(error => console.error("Error:", error));
+    .catch(error => console.error("Error:", error));
 
       this.updateMonthName(from,until);
   }
@@ -73,6 +67,8 @@ export default class extends Controller {
 
     this.totalPriceTarget.innerHTML = ''
     this.totalPriceTarget.innerHTML = `Total price for the period: R$ ${newTotal}`
+
+    // this.jobsGridTarget.innerHTML = 'TEST';
 
   }
 

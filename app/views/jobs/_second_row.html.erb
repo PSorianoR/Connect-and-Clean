@@ -14,7 +14,9 @@
         <p class='card-text'> <%= " #{@job.date_of_job.month}/#{@job.date_of_job.day}/#{@job.date_of_job.year}" %></p>
       </div>
       <% if session[:user_role] == "manager" %>
-        <%= render 'chat_cleaner_button', job: @job %>
+        <% if @job.status != "open" %>
+          <%= render 'chat_cleaner_button', job: @job %>
+        <% end %>
       <% else %>
         <%= render 'chat_manager_button', job: @job %>
       <% end %>

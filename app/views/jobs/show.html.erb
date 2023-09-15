@@ -34,6 +34,7 @@
 
 
 <%# Application Cards %>
+<% if session[:user_role] == "manager" %>
   <% if @job.status == "applied" %>
     <div class="container-fluid text-center">
       <div class="row wrap">
@@ -46,4 +47,5 @@
       </div>
     </div>
   <% end %>
+<% end %>
 <%# Application Cards %>

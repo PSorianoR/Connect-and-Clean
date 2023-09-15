@@ -19,59 +19,7 @@
 
   <%# Ben,i dont know but its not working
   R$ dont appear and the job count continues to appear besides total job of the period %>
-
-  <div class="container bg-white p-3">
-    <div class="row ">
-        <div class="col-md-4 text-center mb-2">
-          <h4>Executed Jobs</h4>
-          <div data-date-filter-target="jobs">
-            <% @jobs.each do |job| %>
-              <p>Cleaning job on <%= job.date_of_job %>: <%= job.price %></p>
-            <% end %>
-          </div>
-        </div>
-        <div class="col-md-4 text-center ">
-          <h5 data-date-filter-target="numberJobs">Total jobs for the period:</h5>
-          <h5><%= @jobs.count %></h5>
-        </div>
-        <div class="col-md-4 text-center ">
-          <h5 data-date-filter-target="totalPrice"> Total price for the period:</h5>
-           <h5> R$ <%= @total_price %></h5>
-        </div>
-    </div>
-  </div>
-</div>
-
-
-
-<%# ben choose between the grid or table, but the grid is less responsive %>
-<%# THE TABLE %>
-<div class=container>
-  <div class="table-card">
-    <div class="table-responsive small">
-      <table class="table align-middle mb-0 bg-white">
-        <thead class=" bg-light">
-          <tr>
-            <th class=" bg-light scope="col">Property</th>
-            <th class=" bg-light scope="col">Cleaner</th>
-            <th class=" bg-light scope="col">Date</th>
-            <th class=" bg-light scope="col">Price</th>
-            <th class=" bg-light scope="col">Expenses</th>
-          </tr>
-        </thead>
-          <tbody>
-            <% @jobs.each do |job| %>
-            <tr>
-              <td class="bg-white" ><%= job.property.title %></td>
-              <%# dont know how to pick the cleaner name, I´m picking the manager name %>
-              <td class="bg-white"><%= job.job_applications.select {|application| application.status == "completed" }.first.user.first_name %></td>
-
-              <td class="bg-white"><%= job.date_of_job %></td>
-              <td class="bg-white"><%= job.price %></td>
-            </tr>
-            <% end %>
-          </tbody>
-      </table>
-    </div>
+  <div data-date-filter-target="jobsGrid">
+    <%= render partial: 'jobs_completed', locals: { jobs: @jobs, total_price: @total_price } %>
   </div>
 </div>

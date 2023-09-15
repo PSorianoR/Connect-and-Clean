@@ -15,12 +15,12 @@
 
 <%# Description and text based on job and job application status %>
 <div class="date-created col-2">
-<p class="align-items-center"><%= job.date_of_job %></p>
+<p class="align-items-center"></p>
 
-  <%= link_to "Manager Profile", user_path(job.user) %>
+  <%= link_to "Manager Profile", user_path(job.user), class: "btn-primary btn-rounded btn" %>
   <%# If a job is open, you can apply or accept directly, depending if you are in the cleaning team. %>
   <% if job.status == "open" %>
-    <p class="current-status"><%= job.status %></p>
+    <p class="current-status"> Status: <%= job.status.capitalize %></p>
     <%= form_tag job_change_status_path(job), method: :patch, style: "display: inline;" do %>
       <% if job.property.teams.find_by(user: current_user, profession: "cleaner") %>
         <%= submit_tag "Accept", class: "btn btn-link" %>
@@ -48,7 +48,7 @@
   <%# If you have accepted the job, you can complete it %>
   <% elsif job.job_applications.find_by(user: current_user, status: "accepted") %>
     <% status = job.job_applications.find_by(user: current_user).status %>
-    <p class="current-status"><%= status %></p>
+    <p class="current-status">Status: <%= status.capitalize %></p>
     <%= form_tag job_change_status_path(job), method: :patch, style: "display: inline;" do %>
       <%= submit_tag "complete", class: "btn btn-link" %>
     <% end %>
@@ -56,7 +56,7 @@
   <%# If you have completed the job and haven't reviewed it, you can review it %>
   <% elsif job.job_applications.find_by(user: current_user, status: "completed") %>
     <% if manager_review(job).nil? %>
-      <p class="current-status">completed</p>
+      <p class="current-status">Status: Completed</p>
       <%= link_to "review job", new_job_review_path(job) %>
 
     <%# If you have reviewed the job and the manager wrote a review, you can read his review. %>
