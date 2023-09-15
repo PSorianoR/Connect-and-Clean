@@ -13,9 +13,8 @@
 </div>
 
 <div class="date-created col-2">
-  <p class="align-items-center"><%= job.date_of_job %></p>
-  <% if job.status != "completed" %>
-    <p class="current-status"><%= job.status %></p>
+  <% if job.status != "Completed" %>
+    <p class="current-status">Status: <%= job.status.capitalize %></p>
   <% end %>
 
     <%# You can accept the application for one of the cleaners that applied. %>
@@ -31,10 +30,10 @@
 
       <%# You cqn only see the review once you wrote a review about the cleaner %>
       <% else %>
-        <p class="current-status">reviewed</p>
+        <p class="current-status">Reviewed</p>
           <%= link_to "Profile", user_path(cleaner) %>
         <% unless cleaner_review(job).nil? %>
-          <%= link_to "see cleaner review", job_review_path(job, manager_review(job))%>
+          <%= link_to "See cleaner review", job_review_path(job, manager_review(job))%>
         <% end %>
       <% end %>
     <% end %>
